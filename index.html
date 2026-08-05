@@ -1,249 +1,566 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishwajeet Verma | Transportation Engineering Researcher</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. Vishwajeet Verma | Portfolio</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+    /* CSS Variables & Theme */
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #38bdf8;
+      --accent-hover: #0284c7;
+      --badge-bg: rgba(56, 189, 248, 0.1);
+      --badge-text: #38bdf8;
+      --sidebar-width: 340px;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* --------------------------------------------------
+       LEFT SIDEBAR (STATIC)
+    -------------------------------------------------- */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-color: #0b1120;
+      border-right: 1px solid var(--border-color);
+      padding: 2.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .profile-header {
+      text-align: center;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--accent-color), #818cf8);
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: var(--card-bg);
+    }
+
+    .sidebar h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+    }
+
+    .sidebar .subtitle {
+      font-size: 0.88rem;
+      color: var(--accent-color);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar .bio-snippet {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .location-tag {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cv-container {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .cv-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--accent-color);
+        color: #0f172a; /* Dark text for contrast */
+        font-weight: 600;
+        font-size: 0.88rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .cv-btn:hover {
+        background-color: #7dd3fc; /* Slightly lighter blue on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border-color);
+    }
+
+    .social-btn:hover {
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    /* --------------------------------------------------
+       MAIN CONTENT AREA
+    -------------------------------------------------- */
+    .main-wrapper {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Sticky Navigation Tabs */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 90;
+      padding: 0 2rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 1.2rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--accent-color);
+    }
+
+    /* Content Panels */
+    .content-container {
+      padding: 2.5rem;
+      max-width: 900px;
+    }
+
+    .tab-panel {
+      display: none; /* Hidden by default; controlled via JS tab switcher */
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Layouts & Typography */
+    h2.section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    h2.section-title i {
+      color: var(--accent-color);
+      font-size: 1.3rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .quote-box {
+      border-left: 3px solid var(--accent-color);
+      background: rgba(30, 41, 59, 0.5);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Skill Badges */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 0.35rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    /* Responsive Rules */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .main-wrapper {
+        margin-left: 0;
+      }
+      .content-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-
-<nav class="navbar">
-
-<div class="logo">
-Vishwajeet Verma
-</div>
-
-<ul>
-
-<li><a href="#about">About</a></li>
-<li><a href="#research">Research</a></li>
-<li><a href="#publications">Publications</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#contact">Contact</a></li>
-
-</ul>
-
-</nav>
-
-</header>
-
-
-<section class="hero">
-
-<div class="hero-text">
-
-<h1>Hello, I'm Vishwajeet Verma</h1>
-
-<h2>Transportation Engineering Researcher</h2>
-
-<p>
-
-Researching sustainable mobility, public transport,
-travel behaviour modelling, machine learning,
-and data-driven transport planning.
-
-</p>
-
-<a class="button" href="assets/cv.pdf">Download CV</a>
-
-</div>
-
-<div class="hero-image">
-
-<img src="assets/profile.jpg" alt="Profile Photo">
-
-</div>
-
-</section>
-
-
-
-<section id="about">
-
-<h2>About Me</h2>
-
-<p>
-
-I am a Transportation Engineering researcher with interests in
-public transport planning, travel demand modelling,
-machine learning, transit service quality,
-mobility behaviour and sustainable transportation systems.
-
-My work integrates statistical modelling,
-artificial intelligence,
-GIS,
-and behavioural science to support evidence-based
-transport policy and planning.
-
-</p>
-
-</section>
-
-
-
-<section id="research">
-
-<h2>Research Interests</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>Public Transport</h3>
-<p>Service quality, accessibility and transit planning.</p>
-</div>
-
-<div class="card">
-<h3>Machine Learning</h3>
-<p>Explainable AI, prediction models and feature importance.</p>
-</div>
-
-<div class="card">
-<h3>Travel Behaviour</h3>
-<p>Choice modelling, activity-based travel and mode choice.</p>
-</div>
-
-<div class="card">
-<h3>Sustainable Mobility</h3>
-<p>Micromobility, e-bikes, active transport and policy.</p>
-</div>
-
-</div>
-
-</section>
-
-
-
-<section id="publications">
-
-<h2>Selected Publications</h2>
-
-<ul>
-
-<li>Publication 1</li>
-
-<li>Publication 2</li>
-
-<li>Publication 3</li>
-
-</ul>
-
-</section>
-
-
-
-<section id="projects">
-
-<h2>Current Research</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>Transit Service Quality</h3>
-<p>Machine learning framework for identifying critical service attributes.</p>
-</div>
-
-<div class="card">
-<h3>Mobility of Care</h3>
-<p>Understanding gendered travel behaviour in Indian cities.</p>
-</div>
-
-<div class="card">
-<h3>E-bike Adoption</h3>
-<p>Gamification and nudging interventions for sustainable commuting.</p>
-</div>
-
-</div>
-
-</section>
-
-
-
-<section id="skills">
-
-<h2>Technical Skills</h2>
-
-<div class="skill-grid">
-
-<span>Python</span>
-
-<span>R</span>
-
-<span>ArcGIS</span>
-
-<span>QGIS</span>
-
-<span>SPSS</span>
-
-<span>Biogeme</span>
-
-<span>Machine Learning</span>
-
-<span>Deep Learning</span>
-
-<span>Statistics</span>
-
-<span>SEM</span>
-
-<span>Git</span>
-
-<span>LaTeX</span>
-
-</div>
-
-</section>
-
-
-
-<section id="contact">
-
-<h2>Get in Touch</h2>
-
-<p>Email:
-your.email@university.ie
-</p>
-
-<div class="social">
-
-<a href="#">Google Scholar</a>
-
-<a href="#">ORCID</a>
-
-<a href="#">Scopus</a>
-
-<a href="#">ResearchGate</a>
-
-<a href="#">GitHub</a>
-
-<a href="#">LinkedIn</a>
-
-</div>
-
-</section>
-
-
-
-<footer>
-
-<p>
-
-© 2026 Vishwajeet Verma
-
-</p>
-
-</footer>
-
-<script src="script.js"></script>
-
+  <!-- ==========================================
+       1. STATIC LEFT SIDEBAR
+  =========================================== -->
+  <aside class="sidebar">
+    <div class="profile-header">
+      <div class="avatar-wrapper">
+        <!-- Replace src with your photo URL -->
+        <img class="avatar-img" src="assets/profile.JPG" alt="Dr. Vishwajeet Verma">
+      </div>
+      <h1>Dr. Vishwajeet Verma</h1>
+      <p class="subtitle">Postdoctoral Research Fellow</p>
+
+      <div class="location-tag">
+        <i class="fa-solid fa-location-dot"></i> Trinity College Dublin, Ireland
+      </div>
+
+      <p class="bio-snippet">
+        Specializing in Transportation Engineering, Urban Travel Demand Modelling, Public Transport Systems, and Gender Auditing.
+      </p>
+    </div>
+
+    <!-- CV View Button (Opens in a new tab) -->
+    <div class="cv-container">
+      <a href="assets/Vishwajeet_Verma_CV.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> View CV
+      </a>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-links">
+      <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" title="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://x.com" target="_blank" rel="noopener" class="social-btn" title="X / Twitter">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <a href="https://facebook.com" target="_blank" rel="noopener" class="social-btn" title="Facebook">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       2. MAIN CONTENT AREA WITH TOP TABS
+  =========================================== -->
+  <div class="main-wrapper">
+    
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+      <ul class="nav-tabs">
+        <li><button class="tab-btn active" onclick="openTab(event, 'about')">About</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'experience')">Education & Experience</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'research')">Research & Projects</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'talks')">Talks & Teachings</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'contact')">Contact</button></li>
+      </ul>
+    </nav>
+
+    <!-- Content Container -->
+    <div class="content-container">
+
+      <!-- TAB 1: ABOUT -->
+      <section id="about" class="tab-panel active">
+        <h2 class="section-title"><i class="fa-solid fa-user"></i> About Me</h2>
+        
+        <div class="card">
+          <p style="margin-bottom: 1rem;">
+            Dr. Vishwajeet Kishore Verma is a <strong>Postdoctoral Research Fellow</strong> at the Center for Transport Research, Department of Civil, Structural and Environmental Engineering, Trinity College Dublin, Ireland.
+          </p>
+          <p style="margin-bottom: 1rem;">
+            Prior to joining Trinity College Dublin, he served as a Postdoctoral Research Scientist at the Civil Engineering Department at IIT Bombay, Mumbai. Additionally, he provides freelance technical consultancy services to industrial organizations.
+          </p>
+          <p>
+            He is a technology enthusiast focused on integrating innovative data solutions to simplify and improve urban transport systems.
+          </p>
+
+          <div class="quote-box">
+            "Cities are an invention to maximize exchange opportunities and to minimize travel; the role of transport is to proclaim it." 
+            <br><span style="font-size: 0.85rem; font-weight: 600;">— David Engwicht</span>
+          </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-gears"></i> Core Expertise</h2>
+        <div class="skills-grid">
+          <span class="badge">Travel Demand Modelling</span>
+          <span class="badge">Urban Transport Planning</span>
+          <span class="badge">Public Transport Evaluation</span>
+          <span class="badge">Gender Auditing</span>
+          <span class="badge">Road Development Master Plans</span>
+          <span class="badge">Urban Roads DPRs & FPRs</span>
+          <span class="badge">Bus Transport Systems</span>
+          <span class="badge">Freelance Technical Consultancy</span>
+        </div>
+      </section>
+
+      <!-- TAB 2: EDUCATION & EXPERIENCE -->
+      <section id="experience" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Professional Experience</h2>
+        
+        <div class="card">
+          <div class="card-title">Postdoctoral Research Fellow</div>
+          <div class="card-subtitle">Trinity College Dublin | Center for Transport Research</div>
+          <div class="card-meta">Dublin, Ireland</div>
+          <p>Researching sustainable transport infrastructure, travel behavior, and advanced mobility models.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Postdoctoral Research Scientist</div>
+          <div class="card-subtitle">IIT Bombay</div>
+          <div class="card-meta">Mumbai, India</div>
+          <p>Led transportation engineering research projects, public transit evaluation, and urban mobility framework design.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Industry Consultant</div>
+          <div class="card-subtitle">Mott MacDonald</div>
+          <p>Contributed to industry-sponsored transport planning, DPRs/FPRs preparations, and master plan execution.</p>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+        
+        <div class="card">
+          <div class="card-title">Ph.D. in Transportation Engineering</div>
+          <div class="card-subtitle">IIT Roorkee</div>
+          <div class="card-meta">Department of Civil Engineering</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">M.Tech in Transportation Engineering</div>
+          <div class="card-subtitle">NIT Karnataka, Surathkal</div>
+        </div>
+      </section>
+
+      <!-- TAB 3: RESEARCH & PROJECTS -->
+      <section id="research" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Research & Projects</h2>
+        
+        <div class="card">
+          <div class="card-title">Public Transport Performance Evaluation & Gender Auditing</div>
+          <div class="card-subtitle">Industry-Sponsored Research</div>
+          <p>Comprehensive assessment of public transit accessibility and safety with a focus on socioeconomic and gender-based passenger segmentation.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Urban Road Master Plans (DPRs & FPRs)</div>
+          <div class="card-subtitle">Infrastructure & Master Planning</div>
+          <p>Formulated Detailed Project Reports (DPRs) and Feasibility Project Reports (FPRs) for urban mobility and road expansion initiatives.</p>
+        </div>
+      </section>
+
+      <!-- TAB 4: TALKS & TEACHINGS -->
+      <section id="talks" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-chalkboard-user"></i> Seminars & Teachings</h2>
+        
+        <div class="card">
+          <div class="card-title">Seminars & Guest Lectures</div>
+          <p>Delivered technical talks on Travel Demand Modelling, Urban Mobility Solutions, and Transport Systems Engineering at academic and industry forums.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Academic Teachings</div>
+          <p>Engaged in teaching and mentoring undergraduate and postgraduate engineering candidates in transportation modeling and infrastructure planning.</p>
+        </div>
+      </section>
+
+      <!-- TAB 5: CONTACT -->
+      <section id="contact" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-envelope"></i> Get In Touch</h2>
+        
+        <div class="card">
+          <p style="margin-bottom: 1rem;">
+            Open for research collaborations, technical consultancy, and academic discussions.
+          </p>
+          <p><strong>Location:</strong> Dept. of Civil, Structural & Environmental Engineering, Trinity College Dublin, Ireland.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      &copy; Dr. Vishwajeet Verma. All Rights Reserved.
+    </footer>
+  </div>
+
+  <!-- JavaScript for Tab Switching (Without Page Scrolling) -->
+  <script>
+    function openTab(evt, tabId) {
+      // 1. Hide all tab content panels
+      const panels = document.querySelectorAll('.tab-panel');
+      panels.forEach(panel => panel.classList.remove('active'));
+
+      // 2. Remove 'active' class from all tab buttons
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => btn.classList.remove('active'));
+
+      // 3. Show the current tab panel and highlight the clicked button
+      document.getElementById(tabId).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+  </script>
 </body>
-
 </html>
