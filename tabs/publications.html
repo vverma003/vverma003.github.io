@@ -1,52 +1,53 @@
 <section id="publications" class="tab-panel">
-  <h2 class="section-title"><i class="fa-solid fa-book-open"></i> Research & Publications</h2>
+  <h2 class="section-title"><i class="fa-solid fa-book-open"></i> Publications</h2>
   
   <!-- Main Category Filters -->
   <div class="filter-controls">
     <button class="filter-btn active" onclick="selectPublicationType('journals', event)">
-      Journals <span id="count-journals" class="count-badge"></span>
+      Journals <span id="count-journals"></span>
     </button>
     <button class="filter-btn" onclick="selectPublicationType('conferences', event)">
-      Conferences <span id="count-conferences" class="count-badge"></span>
+      Conferences <span id="count-conferences"></span>
     </button>
     <button class="filter-btn" onclick="selectPublicationType('codes', event)">
-      Codes <span id="count-codes" class="count-badge"></span>
+      Codes <span id="count-codes"></span>
     </button>
     <button class="filter-btn" onclick="selectPublicationType('dissertation', event)">
-      Dissertation <span id="count-dissertation" class="count-badge"></span>
+      Dissertation <span id="count-dissertation"></span>
     </button>
   </div>
 
   <!-- Journals Sub-Filter -->
   <div id="journal-subfilters" class="sub-filter-controls">
     <button class="sub-filter-btn active" onclick="filterJournals('all', event)">
-      All Journals <span id="count-journals-all" class="count-badge"></span>
+      All Journals <span id="count-journals-all"></span>
     </button>
     <button class="sub-filter-btn" onclick="filterJournals('sci', event)">
-      SCI / SCIE / ESCI <span id="count-journals-sci" class="count-badge"></span>
+      SCI / SCIE / ESCI <span id="count-journals-sci"></span>
     </button>
     <button class="sub-filter-btn" onclick="filterJournals('scopus', event)">
-      Scopus <span id="count-journals-scopus" class="count-badge"></span>
+      Scopus <span id="count-journals-scopus"></span>
     </button>
     <button class="sub-filter-btn" onclick="filterJournals('working', event)">
-      Working Paper <span id="count-journals-working" class="count-badge"></span>
+      Working Paper <span id="count-journals-working"></span>
     </button>
   </div>
 
   <!-- Conferences Sub-Filter -->
   <div id="conference-subfilters" class="sub-filter-controls" style="display: none;">
     <button class="sub-filter-btn active" onclick="filterConferences('all', event)">
-      All Conferences <span id="count-conferences-all" class="count-badge"></span>
+      All Conferences <span id="count-conferences-all"></span>
     </button>
     <button class="sub-filter-btn" onclick="filterConferences('international', event)">
-      International <span id="count-conferences-international" class="count-badge"></span>
+      International <span id="count-conferences-international"></span>
     </button>
     <button class="sub-filter-btn" onclick="filterConferences('national', event)">
-      National <span id="count-conferences-national" class="count-badge"></span>
+      National <span id="count-conferences-national"></span>
     </button>
   </div>
 
   <!-- ================= JOURNALS ================= -->
+   <!-- SCI/SCIE/ESCI -->
   <div class="card pub-item journal-item" data-type="journals" data-scope="sci">
     <div class="card-title">
       <span class="pub-title-text">Examining transit performance evaluation approaches in the context of developing countries <a href="https://doi.org/10.1007/s12469-024-00366-7" target="_blank" rel="noopener noreferrer" class="inline-link">[Link]</a></span>
@@ -65,6 +66,7 @@
     <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
   </div>
 
+  <!-- Scopus -->
   <div class="card pub-item journal-item" data-type="journals" data-scope="scopus">
     <div class="card-title">
       <span class="pub-title-text">Standardization of Commuter Perception Survey to Measure Transit Service Quality – An Indian Study <a href="#" target="_blank" rel="noopener noreferrer" class="inline-link">[Link]</a></span>
@@ -89,6 +91,34 @@
       <span class="date-inline">2022</span>
     </div>
     <div class="card-subtitle">Lecture Notes in Civil Engineering, vol 220. Springer, Singapore</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+
+  <!-- Working Papers -->
+  <div class="card pub-item journal-item" data-type="journals" data-scope="working">
+    <div class="card-title">
+      <span class="pub-title-text">Exploring Transit Passengers' Satisfaction about Service Quality through Priori Approach of Segmentation Analysis</span>
+      <span class="date-inline">2026</span>
+    </div>
+    <div class="card-subtitle">Working Paper (Submitted)</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+
+  <div class="card pub-item journal-item" data-type="journals" data-scope="working">
+    <div class="card-title">
+      <span class="pub-title-text">A novel methodology for a comprehensive performance assessment of a public transport system</span>
+      <span class="date-inline">2026</span>
+    </div>
+    <div class="card-subtitle">Working Paper (Submitted)</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+
+  <div class="card pub-item journal-item" data-type="journals" data-scope="working">
+    <div class="card-title">
+      <span class="pub-title-text">Which supervised machine learning regressor is suitable for identifying important transit service quality attributes? – Insights from Four Different Transit Systems</span>
+      <span class="date-inline">2026</span>
+    </div>
+    <div class="card-subtitle">Working Paper (In Preparation)</div>
     <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
   </div>
 

@@ -436,8 +436,10 @@ h2.section-title i {
   color: var(--text-main);
 }
 
+/* Updated: Added min-width to ensure wrapping works correctly across all layouts */
 .pub-title-text {
   flex: 1;
+  min-width: 0;
 }
 
 .inline-link {
@@ -453,6 +455,7 @@ h2.section-title i {
   text-decoration: underline;
 }
 
+/* Updated: Added white-space: nowrap and flex-shrink: 0 */
 .date-inline {
   font-size: 0.78rem;
   font-weight: 500;
@@ -462,6 +465,8 @@ h2.section-title i {
   padding: 0.15rem 0.55rem;
   border-radius: 6px;
   line-height: 1.2;
+  white-space: nowrap; /* Forces date string onto a single line */
+  flex-shrink: 0;      /* Prevents the date box from compressing */
 }
 
 .card-subtitle {

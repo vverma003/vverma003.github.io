@@ -15,6 +15,12 @@ function loadTab(tabName, evt) {
     })
     .then(html => {
       contentArea.innerHTML = html;
+
+      // If the loaded tab is 'publications', update counts & run initial filtering
+      if (tabName === 'publications') {
+        updatePublicationCounts();
+        sortPublicationsByYear();
+      }
     })
     .catch(err => {
       contentArea.innerHTML = `<div class="card"><p style="color:#ef4444;">Error loading tab: ${err.message}</p></div>`;
@@ -29,46 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- Filtering Functions --- */
 function filterItems(sectionId, filterGroup, evt) {
   const section = document.getElementById(sectionId);
+  if (!section) return;
+
   section.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-  evt.currentTarget.classList.add('active');
+  if (evt) evt.currentTarget.classList.add('active');
 
   section.querySelectorAll('.project-item').forEach(item => {
     const itemCat = item.getAttribute('data-category');
     item.style.display = (filterGroup === 'all' || itemCat === filterGroup) ? 'block' : 'none';
   });
-}
-
-function selectPublicationType(type, evt) {
-  const pubSection = document.getElementById('publications');
-  
-  // Highlight active main category filter button
-  pubSection.querySelectorAll('.filter-controls .filter-btn').forEach(btn => btn.classList.remove('active'));
-  evt.currentTarget.classList.add('active');
-
-  const jSub = document.getElementById('journal-subfilters');
-  const cSub = document.getElementById('conference-subfilters');
-
-  // Get all publication items
-  const allPubs = pubSection.querySelectorAll('.pub-item');
-
-  if (type === 'journals') {
-    jSub.style.display = 'flex';
-    cSub.style.display = 'none';
-    filterJournals('all');
-  } else if (type === 'conferences') {
-    jSub.style.display = 'none';
-    cSub.style.display = 'flex';
-    filterConferences('all');
-  } else {
-    // Hide both sub-filter rows for Codes & Dissertation
-    jSub.style.display = 'none';
-    cSub.style.display = 'none';
-
-    // Show only items matching the selected type
-    allPubs.forEach(pub => {
-      pub.style.display = (pub.getAttribute('data-type') === type) ? 'block' : 'none';
-    });
-  }
 }
 
 /* Helper Function: Sort Visible Publications by Year (Descending) */
@@ -90,62 +65,70 @@ function sortPublicationsByYear() {
   pubCards.forEach(card => pubSection.appendChild(card));
 }
 
+/* Update Counts Function (Safe against missing elements) */
 function updatePublicationCounts() {
-  // Main Category Counts
-  const journalCards = document.querySelectorAll('.pub-item[data-type="journals"]');
-  const conferenceCards = document.querySelectorAll('.pub-item[data-type="conferences"]');
-  const codeCards = document.querySelectorAll('.pub-item[data-type="codes"]');
-  const dissertationCards = document.querySelectorAll('.pub-item[data-type="dissertation"]');
+  const pubSection = document.getElementById('publications');
+  if (!pubSection) return;
 
-  document.getElementById('count-journals').textContent = `(${journalCards.length})`;
-  document.getElementById('count-conferences').textContent = `(${conferenceCards.length})`;
-  document.getElementById('count-codes').textContent = `(${codeCards.length})`;
-  document.getElementById('count-dissertation').textContent = `(${dissertationCards.length})`;
+  // Helper to safely assign text content if element exists
+  const setBadge = (id, count) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = `(${count})`;
+  };
+
+  // Main Category Counts
+  const journalCards = pubSection.querySelectorAll('.pub-item[data-type="journals"]');
+  const conferenceCards = pubSection.querySelectorAll('.pub-item[data-type="conferences"]');
+  const codeCards = pubSection.querySelectorAll('.pub-item[data-type="codes"]');
+  const dissertationCards = pubSection.querySelectorAll('.pub-item[data-type="dissertation"]');
+
+  setBadge('count-journals', journalCards.length);
+  setBadge('count-conferences', conferenceCards.length);
+  setBadge('count-codes', codeCards.length);
+  setBadge('count-dissertation', dissertationCards.length);
 
   // Journal Sub-Filter Counts
-  const sciJournals = document.querySelectorAll('.pub-item[data-type="journals"][data-scope="sci"]');
-  const scopusJournals = document.querySelectorAll('.pub-item[data-type="journals"][data-scope="scopus"]');
-  const workingJournals = document.querySelectorAll('.pub-item[data-type="journals"][data-scope="working"]');
+  const sciJournals = pubSection.querySelectorAll('.pub-item[data-type="journals"][data-scope="sci"]');
+  const scopusJournals = pubSection.querySelectorAll('.pub-item[data-type="journals"][data-scope="scopus"]');
+  const workingJournals = pubSection.querySelectorAll('.pub-item[data-type="journals"][data-scope="working"]');
 
-  document.getElementById('count-journals-all').textContent = `(${journalCards.length})`;
-  document.getElementById('count-journals-sci').textContent = `(${sciJournals.length})`;
-  document.getElementById('count-journals-scopus').textContent = `(${scopusJournals.length})`;
-  document.getElementById('count-journals-working').textContent = `(${workingJournals.length})`;
+  setBadge('count-journals-all', journalCards.length);
+  setBadge('count-journals-sci', sciJournals.length);
+  setBadge('count-journals-scopus', scopusJournals.length);
+  setBadge('count-journals-working', workingJournals.length);
 
   // Conference Sub-Filter Counts
-  const intConferences = document.querySelectorAll('.pub-item[data-type="conferences"][data-scope="international"]');
-  const natConferences = document.querySelectorAll('.pub-item[data-type="conferences"][data-scope="national"]');
+  const intConferences = pubSection.querySelectorAll('.pub-item[data-type="conferences"][data-scope="international"]');
+  const natConferences = pubSection.querySelectorAll('.pub-item[data-type="conferences"][data-scope="national"]');
 
-  document.getElementById('count-conferences-all').textContent = `(${conferenceCards.length})`;
-  document.getElementById('count-conferences-international').textContent = `(${intConferences.length})`;
-  document.getElementById('count-conferences-national').textContent = `(${natConferences.length})`;
+  setBadge('count-conferences-all', conferenceCards.length);
+  setBadge('count-conferences-international', intConferences.length);
+  setBadge('count-conferences-national', natConferences.length);
 }
-
-// Run on page load
-document.addEventListener('DOMContentLoaded', updatePublicationCounts);
 
 /* Main Category Switcher */
 function selectPublicationType(type, evt) {
   const pubSection = document.getElementById('publications');
-  
+  if (!pubSection) return;
+
   pubSection.querySelectorAll('.filter-controls .filter-btn').forEach(btn => btn.classList.remove('active'));
-  evt.currentTarget.classList.add('active');
+  if (evt) evt.currentTarget.classList.add('active');
 
   const jSub = document.getElementById('journal-subfilters');
   const cSub = document.getElementById('conference-subfilters');
   const allPubs = pubSection.querySelectorAll('.pub-item');
 
   if (type === 'journals') {
-    jSub.style.display = 'flex';
-    cSub.style.display = 'none';
+    if (jSub) jSub.style.display = 'flex';
+    if (cSub) cSub.style.display = 'none';
     filterJournals('all');
   } else if (type === 'conferences') {
-    jSub.style.display = 'none';
-    cSub.style.display = 'flex';
+    if (jSub) jSub.style.display = 'none';
+    if (cSub) cSub.style.display = 'flex';
     filterConferences('all');
   } else {
-    jSub.style.display = 'none';
-    cSub.style.display = 'none';
+    if (jSub) jSub.style.display = 'none';
+    if (cSub) cSub.style.display = 'none';
 
     allPubs.forEach(pub => {
       pub.style.display = (pub.getAttribute('data-type') === type) ? 'block' : 'none';
@@ -157,9 +140,11 @@ function selectPublicationType(type, evt) {
 /* Sub-filtering Journals */
 function filterJournals(scope, evt) {
   const subContainer = document.getElementById('journal-subfilters');
+  if (!subContainer) return;
+
   const btns = subContainer.querySelectorAll('.sub-filter-btn');
   btns.forEach(b => b.classList.remove('active'));
-  if (evt) evt.currentTarget.classList.add('active'); else btns[0].classList.add('active');
+  if (evt) evt.currentTarget.classList.add('active'); else if (btns[0]) btns[0].classList.add('active');
 
   // Hide all non-journal items
   document.querySelectorAll('.conf-item, .code-item, .dissertation-item').forEach(i => i.style.display = 'none');
@@ -169,16 +154,17 @@ function filterJournals(scope, evt) {
     item.style.display = (scope === 'all' || item.getAttribute('data-scope') === scope) ? 'block' : 'none';
   });
 
-  // Sort visible items by year descending
   sortPublicationsByYear();
 }
 
 /* Sub-filtering Conferences */
 function filterConferences(scope, evt) {
   const subContainer = document.getElementById('conference-subfilters');
+  if (!subContainer) return;
+
   const btns = subContainer.querySelectorAll('.sub-filter-btn');
   btns.forEach(b => b.classList.remove('active'));
-  if (evt) evt.currentTarget.classList.add('active'); else btns[0].classList.add('active');
+  if (evt) evt.currentTarget.classList.add('active'); else if (btns[0]) btns[0].classList.add('active');
 
   // Hide all non-conference items
   document.querySelectorAll('.journal-item, .code-item, .dissertation-item').forEach(i => i.style.display = 'none');
@@ -188,14 +174,15 @@ function filterConferences(scope, evt) {
     item.style.display = (scope === 'all' || item.getAttribute('data-scope') === scope) ? 'block' : 'none';
   });
 
-  // Sort visible items by year descending
   sortPublicationsByYear();
 }
 
 function filterNews(year, evt) {
   const section = document.getElementById('news');
+  if (!section) return;
+
   section.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-  evt.currentTarget.classList.add('active');
+  if (evt) evt.currentTarget.classList.add('active');
 
   section.querySelectorAll('.news-year-card').forEach(card => {
     card.style.display = (year === 'all' || card.getAttribute('data-year') === year) ? 'block' : 'none';
@@ -204,8 +191,10 @@ function filterNews(year, evt) {
 
 function filterBlogs(category, evt) {
   const section = document.getElementById('blog');
+  if (!section) return;
+
   section.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-  evt.currentTarget.classList.add('active');
+  if (evt) evt.currentTarget.classList.add('active');
 
   section.querySelectorAll('.blog-card').forEach(card => {
     card.style.display = (category === 'all' || card.getAttribute('data-category') === category) ? 'block' : 'none';
@@ -214,13 +203,19 @@ function filterBlogs(category, evt) {
 
 /* --- Modal Reader Functions --- */
 function openModal(modalId) {
-  document.getElementById(modalId).style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function closeModal(modalId) {
-  document.getElementById(modalId).style.display = 'none';
-  document.body.style.overflow = 'auto';
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
 }
 
 function closeModalOutside(event, modalId) {
@@ -230,6 +225,8 @@ function closeModalOutside(event, modalId) {
 /* --- Upvote & Comment Functions --- */
 function toggleUpvote(postId) {
   const card = document.getElementById(postId);
+  if (!card) return;
+
   const btn = card.querySelector('.upvote-btn');
   const countSpan = card.querySelector('.upvote-count');
   let currentCount = parseInt(countSpan.textContent, 10);
@@ -245,6 +242,8 @@ function toggleUpvote(postId) {
 
 function addComment(postId) {
   const card = document.getElementById(postId);
+  if (!card) return;
+
   const nameInput = card.querySelector('.comment-name');
   const msgInput = card.querySelector('.comment-msg');
   const list = card.querySelector('.comment-list');
