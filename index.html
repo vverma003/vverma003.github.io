@@ -7,393 +7,7 @@
   <!-- Google Fonts & FontAwesome Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <style>
-    /* CSS Variables & Theme */
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --border-color: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-color: #38bdf8;
-      --accent-hover: #0284c7;
-      --badge-bg: rgba(56, 189, 248, 0.1);
-      --badge-text: #38bdf8;
-      --sidebar-width: 340px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* --------------------------------------------------
-       LEFT SIDEBAR (STATIC)
-    -------------------------------------------------- */
-    .sidebar {
-      width: var(--sidebar-width);
-      height: 100vh;
-      position: fixed;
-      left: 0;
-      top: 0;
-      background-color: #0b1120;
-      border-right: 1px solid var(--border-color);
-      padding: 2.5rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 100;
-      overflow-y: auto;
-    }
-
-    .profile-header {
-      text-align: center;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 140px;
-      height: 140px;
-      margin: 0 auto 1.5rem;
-      border-radius: 50%;
-      padding: 4px;
-      background: linear-gradient(135deg, var(--accent-color), #818cf8);
-    }
-
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: var(--card-bg);
-    }
-
-    .sidebar h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 0.3rem;
-    }
-
-    .sidebar .subtitle {
-      font-size: 0.88rem;
-      color: var(--accent-color);
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .sidebar .bio-snippet {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-
-    .location-tag {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .cv-container {
-      margin-top: 2rem;
-      width: 100%;
-    }
-    .cv-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.4rem;
-        width: 100%;
-        padding: 0.5rem 1rem;
-        background-color: var(--accent-color);
-        color: #0f172a; /* Dark text for contrast */
-        font-weight: 600;
-        font-size: 0.85rem;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .cv-btn:hover {
-        background-color: #7dd3fc; /* Slightly lighter blue on hover */
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
-    }
-
-    .email-container {
-        width: 100%;
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-        text-align: center;
-    }
-
-    .email-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-
-    .email-btn:hover {
-        color: var(--accent-color);
-        border-color: var(--accent-color);
-        background-color: rgba(56, 189, 248, 0.05);
-        
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 0.3rem;
-      flex-wrap: nowrap;
-      margin-top: auto;
-      padding-top: 0.9rem;
-      border-top: 1px solid var(--border-color);
-      width: 100%;
-    }
-
-    .social-btn {
-      width: 34px;
-      height: 34px;
-      font-size: 0.85rem;
-      border-radius: 8px;
-      background: var(--card-bg);
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      border: 1px solid var(--border-color);
-      flex-shrink: 0;
-    }
-
-    .social-btn:hover {
-      color: var(--accent-color);
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-    }
-
-    /* --------------------------------------------------
-       MAIN CONTENT AREA
-    -------------------------------------------------- */
-    .main-wrapper {
-      margin-left: var(--sidebar-width);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Top Sticky Navigation Tabs */
-    .navbar {
-      position: sticky;
-      top: 0;
-      background-color: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 90;
-      padding: 0 2rem;
-    }
-
-    .nav-tabs {
-      display: flex;
-      list-style: none;
-      gap: 0.5rem;
-      overflow-x: auto;
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      padding: 1.2rem 1rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      position: relative;
-      white-space: nowrap;
-      transition: color 0.2s;
-    }
-
-    .tab-btn:hover {
-      color: var(--text-main);
-    }
-
-    .tab-btn.active {
-      color: var(--accent-color);
-      font-weight: 600;
-    }
-
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: var(--accent-color);
-    }
-
-    /* Content Panels */
-    .content-container {
-      padding: 2.5rem;
-      max-width: 900px;
-    }
-
-    .tab-panel {
-      display: none; /* Hidden by default; controlled via JS tab switcher */
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Card Layouts & Typography */
-    h2.section-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    h2.section-title i {
-      color: var(--accent-color);
-      font-size: 1.3rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      transition: border-color 0.2s;
-    }
-
-    .card:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-    }
-
-    .card-title {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-main);
-    }
-
-    .date-inline {
-        font-size: 0.78rem;
-        font-weight: 500;
-        color: var(--accent-color);
-        background: var(--badge-bg);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        padding: 0.15rem 0.55rem;
-        border-radius: 6px;
-        line-height: 1.2;
-    }
-
-    .card-subtitle {
-      font-size: 0.9rem;
-      color: var(--accent-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .card-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.8rem;
-    }
-
-    .quote-box {
-      border-left: 3px solid var(--accent-color);
-      background: rgba(30, 41, 59, 0.5);
-      padding: 1rem 1.2rem;
-      margin: 1.5rem 0;
-      font-style: italic;
-      color: var(--text-muted);
-      border-radius: 0 8px 8px 0;
-    }
-
-    /* Skill Badges */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-
-    .badge {
-      background: var(--badge-bg);
-      color: var(--badge-text);
-      padding: 0.35rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-    }
-
-    /* Footer */
-    footer {
-      margin-top: auto;
-      padding: 1.5rem 2.5rem;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      text-align: center;
-    }
-
-    /* Responsive Rules */
-    @media (max-width: 900px) {
-      body {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-      }
-      .main-wrapper {
-        margin-left: 0;
-      }
-      .content-container {
-        padding: 1.5rem;
-      }
-    }
-  </style>
+  
 </head>
 <body>
 
@@ -403,7 +17,6 @@
   <aside class="sidebar">
     <div class="profile-header">
       <div class="avatar-wrapper">
-        <!-- Replace src with your photo URL -->
         <img class="avatar-img" src="assets/profile.JPG" alt="Dr. Vishwajeet Verma">
       </div>
       <h1>Dr. Vishwajeet Verma</h1>
@@ -418,7 +31,7 @@
       </p>
     </div>
 
-    <!-- CV View Button (Opens in a new tab) -->
+    <!-- CV View Button -->
     <div class="cv-container">
       <a href="assets/CV_V.Verma.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
         <i class="fa-solid fa-arrow-up-right-from-square"></i> Download CV
@@ -474,9 +87,10 @@
       <ul class="nav-tabs">
         <li><button class="tab-btn active" onclick="openTab(event, 'about')">About</button></li>
         <li><button class="tab-btn" onclick="openTab(event, 'experience')">Education & Experience</button></li>
-        <li><button class="tab-btn" onclick="openTab(event, 'research')">Research & Projects</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'projects')">Projects</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'publications')">Publications</button></li>
         <li><button class="tab-btn" onclick="openTab(event, 'talks')">Talks & Teachings</button></li>
-        <li><button class="tab-btn" onclick="openTab(event, 'contact')">Contact</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'news')">News</button></li>
       </ul>
     </nav>
 
@@ -496,12 +110,10 @@
           </p>
           <p style="margin-bottom: 1rem;">
             He holds a PhD from Transportation Engineering Group, Department of Civil Engineering, IIT Roorkee, India and a Masters in Transportation Engineering from NIT Karnataka Surathkal. Dr. Verma has industry experience with Mott MacDonald and over two years of involvement in industry-sponsored research projects, including gender auditing, public transport performance evaluation, and urban transport planning. His professional expertise spans the development of Road Development Master Plans, Urban Roads DPRs and FPRs, Travel Demand Modelling, and Bus Transport Systems.
-        </p>
-            <p style="margin-bottom: 1rem;">
+          </p>
+          <p style="margin-bottom: 1rem;">
             He is a technology enthusiast focused on integrating innovative data solutions to simplify and improve urban transport systems.
           </p>
-
-          <p style="margin-bottom: 3rem;"></p>
 
           <div class="quote-box">
             "Cities are an invention to maximize exchange opportunities and to minimize travel; the role of transport is to proclaim it." 
@@ -511,7 +123,7 @@
 
         <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-gears"></i> Core Expertise</h2>
         <div class="skills-grid">
-            <span class="badge">Transportation Planning</span>
+          <span class="badge">Transportation Planning</span>
           <span class="badge">Public Transportation</span>
           <span class="badge">Micro-mobility</span>
           <span class="badge">Decision Analysis</span>
@@ -529,24 +141,22 @@
           <div class="card-title">
             Postdoctoral Research Fellow
             <span class="date-inline">Jan 2026 – Present</span>
-        </div>
-          <div class="card-subtitle">Trinity College Dublin | Center for Transport Research</div>
-          <div class="card-meta">Dublin, Ireland</div>
-          <p>Researching on development of bike libraries for workspace locations and sustainable mobility solutions.</p>
+          </div>
+          <div class="card-subtitle">Center for Transport Research | Trinity College Dublin, Ireland</div>
+          <p class="desc">Researching on development of bike libraries for workspace locations and sustainable mobility solutions.</p>
         </div>
 
-        <div class="card">
+        <div class="card" style="margin-bottom: 1rem;">
           <div class="card-title">
             Postdoctoral Research Scientist
             <span class="date-inline">June 2025 - Dec 2025</span>
           </div>
           <div class="card-title">
-            Postdoctoral Research Assistant
+            Postdoctoral Research Associate
             <span class="date-inline">Feb 2025 - June 2025</span>
           </div>
-          <div class="card-subtitle">IIT Bombay | Department of Civil Engineering</div>
-          <div class="card-meta">Mumbai, India</div>
-          <p>Acted as a subject matter expert in traffic safety and transportation engineering projects.</p>
+          <div class="card-subtitle">IIT Bombay | Department of Civil Engineering (Mumbai, India)</div>
+          <p class="desc">Acted as a subject matter expert in traffic safety and transportation engineering projects.</p>
         </div>
 
         <div class="card">
@@ -555,7 +165,7 @@
             <span class="date-inline">2017 - 2018</span>
           </div>
           <div class="card-subtitle">Mott MacDonald, India</div>
-          <p>Contributed to industry-sponsored transport planning, Highway Design, and Parking Studies.</p>
+          <p class="desc">Contributed to industry-sponsored transport planning, Highway Design, and Parking Studies.</p>
         </div>
 
         <div class="card">
@@ -564,7 +174,7 @@
             <span class="date-inline">2016 - 2017</span>
           </div>
           <div class="card-subtitle">Vasuprada Consultants LLP, India</div>
-          <p>Contributed to industry-sponsored transport planning, DPRs/FPRs preparations, and master plan execution.</p>
+          <p class="desc">Contributed to industry-sponsored transport planning, DPRs/FPRs preparations, and master plan execution.</p>
         </div>
 
         <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
@@ -598,36 +208,232 @@
       </section>
 
       <!-- TAB 3: PROJECTS -->
-      <section id="research" class="tab-panel">
-        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Projects</h2>
+      <section id="projects" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Projects Engagement</h2>
         
         <div class="card">
-          <div class="card-title">Public Transport Performance Evaluation & Gender Auditing</div>
-          <div class="card-subtitle">Industry-Sponsored Research</div>
-          <p>Comprehensive assessment of public transit accessibility and safety with a focus on socioeconomic and gender-based passenger segmentation.</p>
+          <div class="card-title">
+            SEAI: Bike Library
+            <span class="date-inline">Jan 2025 - Present</span>
+          </div>
+          <div class="card-subtitle">Trinity College Dublin</div>
+          <div class="card-meta">Role: Postdoctoral Research Fellow | PI: Prof. Brian Caulfield</div>
+          <p class="desc">Researching active travel and sustainable mobility interventions across workspace locations.</p>
         </div>
 
         <div class="card">
-          <div class="card-title">Urban Road Master Plans (DPRs & FPRs)</div>
-          <div class="card-subtitle">Infrastructure & Master Planning</div>
-          <p>Formulated Detailed Project Reports (DPRs) and Feasibility Project Reports (FPRs) for urban mobility and road expansion initiatives.</p>
+          <div class="card-title">
+            Review of Traffic Dispersals Schemes of Thane-Borivali Twin Tunnel Project
+            <span class="date-inline">Feb 2025 - Dec 2025</span>
+          </div>
+          <div class="card-subtitle">IIT Bombay</div>
+          <div class="card-meta">Role: Research Associate | Advisor: Prof. P. Vedagiri</div>
+          <p class="desc">Analyzing traffic dispersal alternatives, safety measures, conflicting movements, V/C ratios, and LOS parameters.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            Exploring Mobility of Care related Travels in Bangalore, India
+            <span class="date-inline">Feb 2025 - Sep 2025</span>
+          </div>
+          <div class="card-subtitle">Independent Freelance</div>
+          <div class="card-meta">Role: Research Consultant</div>
+          <p class="desc">Cleaning and analyzing household survey data to extract insights related to mobility of care and travel behaviors.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            Ph.D. Thesis: Development of a Performance Evaluation Framework for Public Transport Systems
+            <span class="date-inline">Jan 2018 - Jan 2025</span>
+          </div>
+          <div class="card-subtitle">IIT Roorkee</div>
+          <div class="card-meta">Role: Research Scholar | Advisor: Prof. Rajat Rastogi</div>
+          <p class="desc">Formulated survey methodologies, decision-making frameworks, fuzzy-AHP, and applied machine learning models on passenger satisfaction datasets.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            Bihar Road Master Plan Phase-2 & Dhanbad Urban Roads DPR
+            <span class="date-inline">2016 - 2017</span>
+          </div>
+          <div class="card-subtitle">Vasuprada Consultants LLP, New Delhi</div>
+          <div class="card-meta">Role: Junior Planner / Highway Engineer</div>
+          <p class="desc">Identified grid road networks, managed GIS spatial databases, planned bypasses, and executed comprehensive traffic and parking surveys.</p>
         </div>
       </section>
 
-      
-
-      <!-- TAB 5: TALKS & TEACHINGS -->
-      <section id="talks" class="tab-panel">
-        <h2 class="section-title"><i class="fa-solid fa-chalkboard-user"></i> Seminars & Teachings</h2>
+      <!-- TAB 4: PUBLICATIONS -->
+      <section id="publications" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-book-open"></i> Research & Publications</h2>
         
         <div class="card">
-          <div class="card-title">Seminars & Guest Lectures</div>
-          <p>Delivered technical talks on Travel Demand Modelling, Urban Mobility Solutions, and Transport Systems Engineering at academic and industry forums.</p>
+          <div class="card-title">Journals (SCI / SCIE / ESCI)</div>
+          <ul style="padding-left: 1.2rem; margin-top: 0.8rem; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem;">
+            <li>
+              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2026).</strong> Examining transit performance evaluation approaches in the context of developing countries. <em>Public Transport</em>, Article No. 366. [IF: 3.2, Q2]
+            </li>
+            <li>
+              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2024).</strong> How Do Stakeholders Perceive Transit Service Quality Attributes? – A study through Fuzzy-AHP. <em>Expert Systems with Applications</em>, Vol. 238, 122043. [IF: 11.5, Q1]
+            </li>
+          </ul>
         </div>
 
         <div class="card">
-          <div class="card-title">Academic Teachings</div>
-          <p>Engaged in teaching and mentoring undergraduate and postgraduate engineering candidates in transportation modeling and infrastructure planning.</p>
+          <div class="card-title">Selected Conferences</div>
+          <ul style="padding-left: 1.2rem; margin-top: 0.8rem; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem;">
+            <li>
+              <strong>Nasim Eslamirad, Vishwajeet Kishore Verma, Francesco Pilla, Brian Caulfield (2026).</strong> Scaling Cycling: Health and Climate Impacts from a Bike Library. Accepted in CRBAM, Ghent, Belgium.
+            </li>
+            <li>
+              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2026).</strong> Analyzing Passengers' Preferences and Perceptions on Service Quality of a Transit: Integrating GUT Matrix Approach and IP Technique. Accepted in 17th WCTR, France.
+            </li>
+            <li>
+              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2023).</strong> Analysing Stakeholders' Perceived Hierarchy of Transit Service Quality Attributes' using Fuzzy-AHP. 102nd Transportation Research Board Annual Meeting, Washington D.C.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- TAB 5: TALKS & TEACHINGS -->
+      <section id="talks" class="tab-panel">
+        
+        <!-- SUBHEADING 1: SEMINARS & TALKS -->
+        <h2 class="section-title"><i class="fa-solid fa-person-chalkboard"></i> Seminars & Talks</h2>
+        
+        <div class="card">
+          <div class="card-title">
+            Performance Evaluation of Public Transport Systems: Ongoing approaches and Way Forward
+            <span class="date-inline">Oct 29, 2025</span>
+          </div>
+          <div class="card-subtitle">TransPedia Research Talk Series | KSCSTE - NATPAC</div>
+          <p class="desc">Delivered an expert lecture organized by the KSCSTE - National Transportation Planning and Research Centre (NATPAC).</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            Demonstration of Statistical Software: SPSS
+            <span class="date-inline">Sep 15–20, 2025</span>
+          </div>
+          <div class="card-subtitle">NIT Calicut | Centre for Transportation Research</div>
+          <p class="desc">Delivered an expert lecture during the short-term training programme on <em>"Tools for Transportation Data Analysis & Modelling"</em> at the Department of Civil Engineering, NIT Calicut.</p>
+        </div>
+
+
+        <!-- SUBHEADING 2: TEACHINGS -->
+        <h2 class="section-title" style="margin-top: 2.5rem;"><i class="fa-solid fa-graduation-cap"></i> Teachings</h2>
+        
+        <!-- Teaching Item 1 (With Certificate Image Slot) -->
+        <div class="card course-card">
+          <div class="course-info">
+            <div class="card-title">
+              Geometric Design of Highways
+              <span class="date-inline"> Autumn Semester: 2022 to 2024</span>
+            </div>
+            <div class="card-subtitle">Teaching Assistant & Mentor</div>
+            <p class="desc">Quiz Preparation, Replying to Lectures' Queries on Discussion Dashboard, Sharing Lecture materials i.e. Video Lectures, PPTs, Notes, and References to Learners.</p>
+          </div>
+          <!-- Certificate Image Box -->
+          <div class="certificate-wrapper">
+            <a href="assets/certificates/certificate1.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="assets/certificates/certificate1.jpg" alt="Teaching Certificate" class="certificate-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=Certificate+Preview';">
+            </a>
+            <span class="cert-caption"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+          </div>
+        </div>
+
+        <!-- Teaching Item 2 (With Certificate Image Slot) -->
+        <div class="card course-card">
+          <div class="course-info">
+            <div class="card-title">
+              Railway Engineering
+                <span class="date-inline"> Autumn Semester: 2024 to 2024</span>
+            </div>
+            <div class="card-subtitle">Teaching Assistant & Mentor</div>
+            <p class="desc">NPTEL Dashboard management, Quiz Preparation, Replying to Lectures' Queries on Discussion Dashboard, Sharing Lecture materials i.e. Video Lectures, PPTs, Notes, and References to Learners</p>
+          </div>
+          <!-- Certificate Image Box -->
+          <div class="certificate-wrapper">
+            <a href="assets/certificates/certificate2.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="assets/certificates/certificate2.jpg" alt="SPSS Workshop Certificate" class="certificate-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=Certificate+Preview';">
+            </a>
+            <span class="cert-caption"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- TAB 6: NEWS -->
+      <section id="news" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> News & Updates</h2>
+        
+        <!-- YEAR 2026 -->
+        <div class="card">
+          <h3 class="year-header"><i class="fa-solid fa-calendar-days"></i> 2026</h3>
+          <ul class="news-list">
+            <li>
+              <span class="news-month">July</span>
+              <div>
+                Presented my research <em>"Analyzing Passengers’ Preferences and Perceptions on Service Quality of a Transit: Integrating GUT Matrix Approach and IP Technique to arrive at Management Schemes"</em> at 17th WCTR2026 Conference at Toulouse, France.
+              </div>
+            </li>
+            <li>
+              <span class="news-month">May</span>
+              <div>
+                Presented my research <em>"Identifying effective Gamified Interventions to increase eBike uptake in the Workplace region"</em> at ITRN Conference at Cork, Ireland.
+              </div>
+            </li>
+            <li>
+              <span class="news-month">Mar</span>
+              <div>
+                My research article <em>"Examining transit performance evaluation approaches in the context of developing countries."</em> is published in Public Transport journal. 
+                <a href="https://doi.org/10.1007/s12469-024-00366-7" target="_blank" rel="noopener noreferrer" class="news-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Article Link</a>
+              </div>
+            </li>
+            <li>
+              <span class="news-month">Jan</span>
+              <div>
+                Started new Postdoctoral position at Trinity College Dublin, Ireland. 🤗
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- YEAR 2025 -->
+        <div class="card">
+          <h3 class="year-header"><i class="fa-solid fa-calendar-days"></i> 2025</h3>
+          <ul class="news-list">
+            <li>
+              <span class="news-month">Dec</span>
+              <div>
+                My EASTS conference paper entitled <em>"Post COVID-19 Behavioural Changes in First-Last Mile Travel and Perception on Service Quality of Public Transport"</em> is online 
+                <a href="https://www.vishwajeetverma.com/research-publications" target="_blank" rel="noopener noreferrer" class="news-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> here</a>.
+              </div>
+            </li>
+            <li>
+              <span class="news-month">June</span>
+              <div>
+                Promoted to <strong>"Project Research Scientist"</strong> at IIT Bombay.
+              </div>
+            </li>
+            <li>
+              <span class="news-month">May</span>
+              <div>
+                Finally defended my Ph.D. Degree. Officially a Doctor now 😉
+              </div>
+            </li>
+            <li>
+              <span class="news-month">Feb</span>
+              <div>
+                Started new position <strong>"Project Research Assistant"</strong> at IIT Bombay, Mumbai, India.
+              </div>
+            </li>
+            <li>
+              <span class="news-month">Jan</span>
+              <div>
+                Submitted my Ph.D. Dissertation at IIT Roorkee. Done and Dusted. 👏
+              </div>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -639,21 +445,5 @@
     </footer>
   </div>
 
-  <!-- JavaScript for Tab Switching (Without Page Scrolling) -->
-  <script>
-    function openTab(evt, tabId) {
-      // 1. Hide all tab content panels
-      const panels = document.querySelectorAll('.tab-panel');
-      panels.forEach(panel => panel.classList.remove('active'));
-
-      // 2. Remove 'active' class from all tab buttons
-      const tabBtns = document.querySelectorAll('.tab-btn');
-      tabBtns.forEach(btn => btn.classList.remove('active'));
-
-      // 3. Show the current tab panel and highlight the clicked button
-      document.getElementById(tabId).classList.add('active');
-      evt.currentTarget.classList.add('active');
-    }
-  </script>
 </body>
 </html>
