@@ -6,8 +6,7 @@
   <title>Dr. Vishwajeet Verma | Portfolio</title>
   <!-- Google Fonts & FontAwesome Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     /* CSS Variables & Theme */
     :root {
@@ -111,20 +110,21 @@
     }
 
     .cv-container {
-      text-align: center;
-      margin-bottom: 1.5rem;
+      margin-top: auto;
+      margin-bottom: 0.3rem;
+      width: 100%;
     }
     .cv-btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.6rem;
+        gap: 0.4rem;
         width: 100%;
-        padding: 0.75rem;
+        padding: 0.5rem 1rem;
         background-color: var(--accent-color);
         color: #0f172a; /* Dark text for contrast */
         font-weight: 600;
-        font-size: 0.88rem;
+        font-size: 0.85rem;
         border-radius: 8px;
         text-decoration: none;
         transition: all 0.2s ease;
@@ -139,16 +139,18 @@
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
+      gap: 0.3rem;
+      flex-wrap: nowrap;
       margin-top: auto;
-      padding-top: 1rem;
+      padding-top: 0.8rem;
       border-top: 1px solid var(--border-color);
+      width: 100%;
     }
 
     .social-btn {
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
+      font-size: 0.85rem;
       border-radius: 8px;
       background: var(--card-bg);
       color: var(--text-muted);
@@ -158,6 +160,7 @@
       text-decoration: none;
       transition: all 0.2s ease;
       border: 1px solid var(--border-color);
+      flex-shrink: 0;
     }
 
     .social-btn:hover {
@@ -378,26 +381,38 @@
 
     <!-- CV View Button (Opens in a new tab) -->
     <div class="cv-container">
-      <a href="assets/Vishwajeet_Verma_CV.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i> View CV
+      <a href="assets/CV_V.Verma.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Download CV
       </a>
     </div>
 
     <!-- Social Icons -->
     <div class="social-links">
-      <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+        <a href="https://scholar.google.com/citations?user=uMwPCy0AAAAJ&hl=en" target="_blank" rel="noopener" class="social-btn" title="Google Scholar">
+          <i class="fa-brands fa-google-scholar"></i>
+        </a>
+
+        <a href="https://www.researchgate.net/profile/Vishwajeet-Verma-2" target="_blank" rel="noopener" class="social-btn" title="ResearchGate">
+          <i class="fa-brands fa-researchgate"></i>
+        </a>
+
+      <a href="https://www.linkedin.com/in/vverma003/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
         <i class="fa-brands fa-linkedin-in"></i>
       </a>
-      <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" title="GitHub">
+
+      <a href="https://github.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="GitHub">
         <i class="fa-brands fa-github"></i>
       </a>
-      <a href="https://x.com" target="_blank" rel="noopener" class="social-btn" title="X / Twitter">
+
+      <a href="https://x.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="X (Twitter)">
         <i class="fa-brands fa-x-twitter"></i>
       </a>
-      <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram">
+
+      <a href="https://instagram.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="Instagram">
         <i class="fa-brands fa-instagram"></i>
       </a>
-      <a href="https://facebook.com" target="_blank" rel="noopener" class="social-btn" title="Facebook">
+
+      <a href="https://facebook.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="Facebook">
         <i class="fa-brands fa-facebook-f"></i>
       </a>
     </div>
