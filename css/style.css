@@ -428,12 +428,29 @@ h2.section-title i {
 
 .card-title {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-main);
+}
+
+.pub-title-text {
+  flex: 1;
+}
+
+.inline-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-left: 0.4rem;
+  display: inline-block;
+}
+
+.inline-link:hover {
+  text-decoration: underline;
 }
 
 .date-inline {
@@ -484,6 +501,20 @@ h2.section-title i {
   font-size: 0.8rem;
   font-weight: 500;
   border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.count-badge {
+  font-size: 0.9em;
+  opacity: 0.85;
+  margin-left: 3px;
+  font-weight: normal;
+}
+
+/* Optional styling when button is active */
+.filter-btn.active .count-badge,
+.sub-filter-btn.active .count-badge {
+  font-weight: bold;
+  opacity: 1;
 }
 
 .course-card {
