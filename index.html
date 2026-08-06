@@ -7,7 +7,6 @@
   <!-- Google Fonts & FontAwesome Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  
 </head>
 
 <style>
@@ -41,7 +40,7 @@
     }
 
     /* --------------------------------------------------
-       LEFT SIDEBAR (STATIC)
+        LEFT SIDEBAR (STATIC)
     -------------------------------------------------- */
     .sidebar {
       width: var(--sidebar-width);
@@ -195,7 +194,7 @@
     }
 
     /* --------------------------------------------------
-       MAIN CONTENT AREA
+        MAIN CONTENT AREA
     -------------------------------------------------- */
     .main-wrapper {
       margin-left: var(--sidebar-width);
@@ -221,6 +220,10 @@
       list-style: none;
       gap: 0.5rem;
       overflow-x: auto;
+      justify-content: flex-end;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     .tab-btn {
@@ -273,6 +276,168 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Filter Pill Controls */
+    .filter-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .sub-filter-controls {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: -0.8rem;
+      margin-bottom: 1.5rem;
+      padding-left: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-color);
+    }
+
+    .filter-btn.active {
+      background: var(--badge-bg);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .sub-filter-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.25rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sub-filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-color);
+    }
+
+    .sub-filter-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* Inline Article Read Button */
+    .read-article-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--badge-bg);
+      color: var(--accent-color);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      transition: all 0.2s ease;
+    }
+
+    .read-article-btn:hover {
+      background: var(--accent-color);
+      color: #0f172a;
+    }
+
+    /* Modal Overlay Styling for Embedded Reading */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .modal-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 750px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .modal-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--accent-color);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    .modal-body p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+
+    .modal-body ul, .modal-body ol {
+      margin-left: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
     }
 
     /* Card Layouts & Typography */
@@ -335,12 +500,6 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       margin-bottom: 0.8rem;
-    }
-
-    card p {
-      font-size: 0.85rem; /* Slightly smaller, refined font size */
-      color: var(--text-muted);
-      line-height: 1.5;
     }
 
     .quote-box {
@@ -413,9 +572,8 @@
       gap: 0.3rem;
     }
 
-    /* Smaller font for seminar/talk descriptions */
     .desc {
-      font-size: 0.85rem; /* Reduced from default 0.95rem/1rem */
+      font-size: 0.85rem;
       color: var(--text-muted);
       line-height: 1.5;
     }
@@ -525,11 +683,10 @@
     }
   </style>
 
-
 <body>
 
   <!-- ==========================================
-       1. STATIC LEFT SIDEBAR
+        1. STATIC LEFT SIDEBAR
   =========================================== -->
   <aside class="sidebar">
     <div class="profile-header">
@@ -595,7 +752,7 @@
   </aside>
 
   <!-- ==========================================
-       2. MAIN CONTENT AREA WITH TOP TABS
+        2. MAIN CONTENT AREA WITH TOP TABS
   =========================================== -->
   <div class="main-wrapper">
     
@@ -603,11 +760,11 @@
     <nav class="navbar">
       <ul class="nav-tabs">
         <li><button class="tab-btn active" onclick="openTab(event, 'about')">About</button></li>
-        <li><button class="tab-btn" onclick="openTab(event, 'experience')">Education & Experience</button></li>
         <li><button class="tab-btn" onclick="openTab(event, 'projects')">Projects</button></li>
         <li><button class="tab-btn" onclick="openTab(event, 'publications')">Publications</button></li>
         <li><button class="tab-btn" onclick="openTab(event, 'talks')">Talks & Teachings</button></li>
         <li><button class="tab-btn" onclick="openTab(event, 'news')">News</button></li>
+        <li><button class="tab-btn" onclick="openTab(event, 'blog')">Blog</button></li>
       </ul>
     </nav>
 
@@ -648,11 +805,9 @@
           <span class="badge">Data-driven based Transport Analytics</span>
           <span class="badge">Gender Auditing</span>
         </div>
-      </section>
 
-      <!-- TAB 2: EDUCATION & EXPERIENCE -->
-      <section id="experience" class="tab-panel">
-        <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Professional Experience</h2>
+        <!-- Profession SECTION -->
+        <h2 class="section-title" style="margin-top: 4rem;"><i class="fa-solid fa-graduation-cap"></i> Professional Experience</h2>
         
         <div class="card">
           <div class="card-title">
@@ -693,8 +848,9 @@
           <div class="card-subtitle">Vasuprada Consultants LLP, India</div>
           <p class="desc">Contributed to industry-sponsored transport planning, DPRs/FPRs preparations, and master plan execution.</p>
         </div>
-
-        <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+        
+        <!-- Education SECTION -->
+        <h2 class="section-title" style="margin-top: 4rem;"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
         
         <div class="card">
           <div class="card-title">
@@ -724,11 +880,18 @@
         </div>
       </section>
 
-      <!-- TAB 3: PROJECTS -->
+      <!-- TAB 2: PROJECTS -->
       <section id="projects" class="tab-panel">
         <h2 class="section-title"><i class="fa-solid fa-flask"></i> Projects Engagement</h2>
         
-        <div class="card">
+        <!-- Projects Filter Pills -->
+        <div class="filter-controls">
+          <button class="filter-btn active" onclick="filterItems('projects', 'all', event)">All</button>
+          <button class="filter-btn" onclick="filterItems('projects', 'academic', event)">Academic</button>
+          <button class="filter-btn" onclick="filterItems('projects', 'industrial', event)">Industrial</button>
+        </div>
+
+        <div class="card project-item" data-category="academic">
           <div class="card-title">
             SEAI: Bike Library
             <span class="date-inline">Jan 2025 - Present</span>
@@ -738,7 +901,7 @@
           <p class="desc">Researching active travel and sustainable mobility interventions across workspace locations.</p>
         </div>
 
-        <div class="card">
+        <div class="card project-item" data-category="industrial">
           <div class="card-title">
             Review of Traffic Dispersals Schemes of Thane-Borivali Twin Tunnel Project
             <span class="date-inline">Feb 2025 - Dec 2025</span>
@@ -748,7 +911,7 @@
           <p class="desc">Analyzing traffic dispersal alternatives, safety measures, conflicting movements, V/C ratios, and LOS parameters.</p>
         </div>
 
-        <div class="card">
+        <div class="card project-item" data-category="industrial">
           <div class="card-title">
             Exploring Mobility of Care related Travels in Bangalore, India
             <span class="date-inline">Feb 2025 - Sep 2025</span>
@@ -758,7 +921,7 @@
           <p class="desc">Cleaning and analyzing household survey data to extract insights related to mobility of care and travel behaviors.</p>
         </div>
 
-        <div class="card">
+        <div class="card project-item" data-category="academic">
           <div class="card-title">
             Ph.D. Thesis: Development of a Performance Evaluation Framework for Public Transport Systems
             <span class="date-inline">Jan 2018 - Jan 2025</span>
@@ -768,7 +931,7 @@
           <p class="desc">Formulated survey methodologies, decision-making frameworks, fuzzy-AHP, and applied machine learning models on passenger satisfaction datasets.</p>
         </div>
 
-        <div class="card">
+        <div class="card project-item" data-category="industrial">
           <div class="card-title">
             Bihar Road Master Plan Phase-2 & Dhanbad Urban Roads DPR
             <span class="date-inline">2016 - 2017</span>
@@ -779,39 +942,81 @@
         </div>
       </section>
 
-      <!-- TAB 4: PUBLICATIONS -->
+      <!-- TAB 3: PUBLICATIONS -->
       <section id="publications" class="tab-panel">
         <h2 class="section-title"><i class="fa-solid fa-book-open"></i> Research & Publications</h2>
         
-        <div class="card">
-          <div class="card-title">Journals (SCI / SCIE / ESCI)</div>
-          <ul style="padding-left: 1.2rem; margin-top: 0.8rem; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem;">
-            <li>
-              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2026).</strong> Examining transit performance evaluation approaches in the context of developing countries. <em>Public Transport</em>, Article No. 366. [IF: 3.2, Q2]
-            </li>
-            <li>
-              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2024).</strong> How Do Stakeholders Perceive Transit Service Quality Attributes? – A study through Fuzzy-AHP. <em>Expert Systems with Applications</em>, Vol. 238, 122043. [IF: 11.5, Q1]
-            </li>
-          </ul>
+        <!-- Publications Main Category Filter -->
+        <div class="filter-controls">
+          <button class="filter-btn active" onclick="selectPublicationType('journals', event)">Journals</button>
+          <button class="filter-btn" onclick="selectPublicationType('conferences', event)">Conferences</button>
         </div>
 
-        <div class="card">
-          <div class="card-title">Selected Conferences</div>
-          <ul style="padding-left: 1.2rem; margin-top: 0.8rem; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem;">
-            <li>
-              <strong>Nasim Eslamirad, Vishwajeet Kishore Verma, Francesco Pilla, Brian Caulfield (2026).</strong> Scaling Cycling: Health and Climate Impacts from a Bike Library. Accepted in CRBAM, Ghent, Belgium.
-            </li>
-            <li>
-              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2026).</strong> Analyzing Passengers' Preferences and Perceptions on Service Quality of a Transit: Integrating GUT Matrix Approach and IP Technique. Accepted in 17th WCTR, France.
-            </li>
-            <li>
-              <strong>Vishwajeet Kishore Verma and Rajat Rastogi (2023).</strong> Analysing Stakeholders' Perceived Hierarchy of Transit Service Quality Attributes' using Fuzzy-AHP. 102nd Transportation Research Board Annual Meeting, Washington D.C.
-            </li>
-          </ul>
+        <!-- Journals Sub-Filter -->
+        <div id="journal-subfilters" class="sub-filter-controls">
+          <button class="sub-filter-btn active" onclick="filterJournals('all', event)">All Journals</button>
+          <button class="sub-filter-btn" onclick="filterJournals('sci', event)">SCI / SCIE / ESCI</button>
+          <button class="sub-filter-btn" onclick="filterJournals('scopus', event)">Scopus</button>
+          <button class="sub-filter-btn" onclick="filterJournals('working', event)">Working Paper</button>
         </div>
+
+        <!-- Conferences Sub-Filter -->
+        <div id="conference-subfilters" class="sub-filter-controls" style="display: none;">
+          <button class="sub-filter-btn active" onclick="filterConferences('all', event)">All Conferences</button>
+          <button class="sub-filter-btn" onclick="filterConferences('international', event)">International</button>
+          <button class="sub-filter-btn" onclick="filterConferences('national', event)">National</button>
+        </div>
+
+        <!-- Journal Content Cards -->
+        <div class="card pub-item journal-item" data-type="journals" data-scope="sci">
+          <div class="card-title">
+            Examining transit performance evaluation approaches in the context of developing countries
+            <span class="date-inline">2026</span>
+          </div>
+          <div class="card-subtitle">Public Transport [IF: 3.2, Q2]</div>
+          <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+        </div>
+
+        <div class="card pub-item journal-item" data-type="journals" data-scope="sci">
+          <div class="card-title">
+            How Do Stakeholders Perceive Transit Service Quality Attributes? – A study through Fuzzy-AHP
+            <span class="date-inline">2024</span>
+          </div>
+          <div class="card-subtitle">Expert Systems with Applications, Vol. 238, 122043 [IF: 11.5, Q1]</div>
+          <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+        </div>
+
+        <!-- Conference Content Cards -->
+        <div class="card pub-item conf-item" data-type="conferences" data-scope="international" style="display: none;">
+          <div class="card-title">
+            Scaling Cycling: Health and Climate Impacts from a Bike Library
+            <span class="date-inline">2026</span>
+          </div>
+          <div class="card-subtitle">CRBAM, Ghent, Belgium (International)</div>
+          <p class="desc">Nasim Eslamirad, Vishwajeet Kishore Verma, Francesco Pilla, Brian Caulfield</p>
+        </div>
+
+        <div class="card pub-item conf-item" data-type="conferences" data-scope="international" style="display: none;">
+          <div class="card-title">
+            Analyzing Passengers' Preferences and Perceptions on Service Quality of a Transit: Integrating GUT Matrix Approach and IP Technique
+            <span class="date-inline">2026</span>
+          </div>
+          <div class="card-subtitle">17th WCTR, Toulouse, France (International)</div>
+          <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+        </div>
+
+        <div class="card pub-item conf-item" data-type="conferences" data-scope="international" style="display: none;">
+          <div class="card-title">
+            Analysing Stakeholders' Perceived Hierarchy of Transit Service Quality Attributes' using Fuzzy-AHP
+            <span class="date-inline">2023</span>
+          </div>
+          <div class="card-subtitle">102nd Transportation Research Board Annual Meeting, Washington D.C. (International)</div>
+          <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+        </div>
+
       </section>
 
-      <!-- TAB 5: TALKS & TEACHINGS -->
+      <!-- TAB 4: TALKS & TEACHINGS -->
       <section id="talks" class="tab-panel">
         
         <!-- SUBHEADING 1: SEMINARS & TALKS -->
@@ -835,11 +1040,10 @@
           <p class="desc">Delivered an expert lecture during the short-term training programme on <em>"Tools for Transportation Data Analysis & Modelling"</em> at the Department of Civil Engineering, NIT Calicut.</p>
         </div>
 
-
         <!-- SUBHEADING 2: TEACHINGS -->
         <h2 class="section-title" style="margin-top: 2.5rem;"><i class="fa-solid fa-graduation-cap"></i> Teachings</h2>
         
-        <!-- Teaching Item 1 (With Certificate Image Slot) -->
+        <!-- Teaching Item 1 -->
         <div class="card course-card">
           <div class="course-info">
             <div class="card-title">
@@ -849,7 +1053,6 @@
             <div class="card-subtitle">Teaching Assistant & Mentor</div>
             <p class="desc">Quiz Preparation, Replying to Lectures' Queries on Discussion Dashboard, Sharing Lecture materials i.e. Video Lectures, PPTs, Notes, and References to Learners.</p>
           </div>
-          <!-- Certificate Image Box -->
           <div class="certificate-wrapper">
             <a href="assets/certificates/certificate1.jpg" target="_blank" rel="noopener noreferrer">
               <img src="assets/certificates/certificate1.jpg" alt="Teaching Certificate" class="certificate-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=Certificate+Preview';">
@@ -858,7 +1061,7 @@
           </div>
         </div>
 
-        <!-- Teaching Item 2 (With Certificate Image Slot) -->
+        <!-- Teaching Item 2 -->
         <div class="card course-card">
           <div class="course-info">
             <div class="card-title">
@@ -868,7 +1071,6 @@
             <div class="card-subtitle">Teaching Assistant & Mentor</div>
             <p class="desc">NPTEL Dashboard management, Quiz Preparation, Replying to Lectures' Queries on Discussion Dashboard, Sharing Lecture materials i.e. Video Lectures, PPTs, Notes, and References to Learners</p>
           </div>
-          <!-- Certificate Image Box -->
           <div class="certificate-wrapper">
             <a href="assets/certificates/certificate2.jpg" target="_blank" rel="noopener noreferrer">
               <img src="assets/certificates/certificate2.jpg" alt="SPSS Workshop Certificate" class="certificate-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=Certificate+Preview';">
@@ -876,15 +1078,21 @@
             <span class="cert-caption"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
           </div>
         </div>
-
       </section>
 
-      <!-- TAB 6: NEWS -->
+      <!-- TAB 5: NEWS -->
       <section id="news" class="tab-panel">
         <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> News & Updates</h2>
         
+        <!-- News Filter Pills -->
+        <div class="filter-controls">
+          <button class="filter-btn active" onclick="filterNews('all', event)">All Years</button>
+          <button class="filter-btn" onclick="filterNews('2026', event)">2026</button>
+          <button class="filter-btn" onclick="filterNews('2025', event)">2025</button>
+        </div>
+
         <!-- YEAR 2026 -->
-        <div class="card">
+        <div class="card news-year-card" data-year="2026">
           <h3 class="year-header"><i class="fa-solid fa-calendar-days"></i> 2026</h3>
           <ul class="news-list">
             <li>
@@ -916,7 +1124,7 @@
         </div>
 
         <!-- YEAR 2025 -->
-        <div class="card">
+        <div class="card news-year-card" data-year="2025">
           <h3 class="year-header"><i class="fa-solid fa-calendar-days"></i> 2025</h3>
           <ul class="news-list">
             <li>
@@ -954,6 +1162,79 @@
         </div>
       </section>
 
+      <!-- TAB 6: BLOG -->
+      <section id="blog" class="tab-panel">
+        <h2 class="section-title"><i class="fa-solid fa-pen-nib"></i> Blog & Writings</h2>
+
+        <!-- Blog Category Filter Controls -->
+        <div class="filter-controls">
+          <button class="filter-btn active" onclick="filterBlogs('all', event)">All Articles</button>
+          <button class="filter-btn" onclick="filterBlogs('transportation', event)">Transportation</button>
+          <button class="filter-btn" onclick="filterBlogs('prospective-candidate', event)">For Prospective Candidates</button>
+        </div>
+
+        <!-- BLOG ARTICLE 1: Transportation -->
+        <div class="card blog-card" data-category="transportation">
+          <div class="card-title">
+            Selecting Transit Systems for Indian Cities: Tram, Monorail, Metro, or BRTS?
+            <span class="date-inline">Transportation</span>
+          </div>
+          <div class="card-subtitle">Transit Selection Dynamics & City Planning Requirements</div>
+          <p class="desc">
+            Picking up a single transit mode as a universal solution for all Indian cities is inefficient. Mode selection must strictly align with city travel dynamics, geographical developments, and horizon-year demand requirements.
+          </p>
+          <button class="read-article-btn" onclick="openModal('modal-transit')">
+            <i class="fa-solid fa-book-open"></i> Read Article
+          </button>
+        </div>
+
+        <!-- BLOG ARTICLE 2: Transportation -->
+        <div class="card blog-card" data-category="transportation">
+          <div class="card-title">
+            Application of Mathematics in Public Transportation
+            <span class="date-inline">Transportation</span>
+          </div>
+          <div class="card-subtitle">Supply-Demand Modeling & Route Optimization</div>
+          <p class="desc">
+            Public transport is fundamentally built on supply-demand equilibrium. From estimating trip generation and distribution matrices to headway optimization and travel time reliability, mathematics drives urban transport engineering.
+          </p>
+          <button class="read-article-btn" onclick="openModal('modal-math')">
+            <i class="fa-solid fa-book-open"></i> Read Article
+          </button>
+        </div>
+
+        <!-- BLOG ARTICLE 3: Prospective Candidates -->
+        <div class="card blog-card" data-category="prospective-candidate">
+          <div class="card-title">
+            Navigating Career Opportunities in Transportation Engineering
+            <span class="date-inline">Prospective Candidates</span>
+          </div>
+          <div class="card-subtitle">Industry vs Academia & Job Preparation Strategy</div>
+          <p class="desc">
+            A practical roadmap for Masters and PhD candidates seeking core roles in consultancy firms, government policymaking bodies, infrastructure developers, and academic research units.
+          </p>
+          <button class="read-article-btn" onclick="openModal('modal-careers')">
+            <i class="fa-solid fa-book-open"></i> Read Article
+          </button>
+        </div>
+
+        <!-- BLOG ARTICLE 4: Prospective Candidates -->
+        <div class="card blog-card" data-category="prospective-candidate">
+          <div class="card-title">
+            Publishing Research from Master's & Thesis Projects
+            <span class="date-inline">Prospective Candidates</span>
+          </div>
+          <div class="card-subtitle">Thesis vs Peer-Reviewed Manuscript Publishing</div>
+          <p class="desc">
+            Converting thesis work into peer-reviewed journal articles requires distinct structural changes. Key strategies on journal selection, addressing reviewer comments, and managing publication timelines.
+          </p>
+          <button class="read-article-btn" onclick="openModal('modal-publishing')">
+            <i class="fa-solid fa-book-open"></i> Read Article
+          </button>
+        </div>
+
+      </section>
+
     </div>
 
     <!-- Footer -->
@@ -962,8 +1243,89 @@
     </footer>
   </div>
 
+  <!-- ==========================================
+        MODAL OVERLAYS FOR EMBEDDED READING
+  =========================================== -->
 
-  <!-- JavaScript for Tab Switching -->
+  <!-- Modal 1: Transit Selection -->
+  <div id="modal-transit" class="modal-overlay" onclick="closeModalOutside(event, 'modal-transit')">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Selecting Transit Systems for Indian Cities</div>
+        <button class="modal-close" onclick="closeModal('modal-transit')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Picking up a sole transit mode as a better option for all kinds of Indian cities is an inefficient and ineffective choice. Instead, the selection of transit type should be purely based on understanding city travel dynamics, geographical developments, and horizon year requirements.</p>
+        <p><strong>Key Considerations:</strong></p>
+        <ul>
+          <li><strong>Bus Rapid Transit (BRTS):</strong> Ideal for medium-density corridors with flexible routing needs and lower capital constraints.</li>
+          <li><strong>Metro Transit:</strong> Suited for high-density, peak-hour urban corridors demanding mass capacity over long distances.</li>
+          <li><strong>Light Rail / Tram:</strong> Useful for historical, low-to-medium demand heritage cores requiring low emissions and localized connectivity.</li>
+        </ul>
+        <p>Integrated multi-modal transportation systems—where feeder modes seamlessly connect to primary high-capacity lines—remain the most sustainable solution for expanding urban centers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Mathematics in Transport -->
+  <div id="modal-math" class="modal-overlay" onclick="closeModalOutside(event, 'modal-math')">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Application of Mathematics in Public Transportation</div>
+        <button class="modal-close" onclick="closeModal('modal-math')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Public Transport service represents the supply provided to meet commuters' travel demand across an urban network. Mathematics serves as the fundamental language through which transit operators plan, analyze, and optimize these operations.</p>
+        <p><strong>Primary Areas of Application:</strong></p>
+        <ul>
+          <li><strong>Demand Forecasting:</strong> Four-step travel modeling (Trip Generation, Trip Distribution, Mode Choice, and Traffic Assignment) utilizes matrix algebra, multinomial logit models, and regression analysis.</li>
+          <li><strong>Scheduling & Fleet Allocation:</strong> Operations research and linear programming optimize vehicle scheduling and minimize deadheading kilometers.</li>
+          <li><strong>Service Quality Evaluation:</strong> Multi-Criteria Decision Making (MCDM) methods like Fuzzy-AHP and GUT matrices prioritize service attributes to improve passenger satisfaction.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Career Guidance -->
+  <div id="modal-careers" class="modal-overlay" onclick="closeModalOutside(event, 'modal-careers')">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Navigating Career Opportunities in Transportation Engineering</div>
+        <button class="modal-close" onclick="closeModal('modal-careers')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Graduating with an advanced degree in Transportation Engineering offers diverse career paths ranging from specialized industrial consultancies to research institutes and public policy bodies.</p>
+        <p><strong>Core Professional Streams:</strong></p>
+
+        <ol>
+          <li><strong>Transport Planner:</strong> Focuses on city-wide master plans, travel demand modeling, and policy evaluation. Key tools include ArcGIS, PTV Visum, and Google Earth Pro.</li>
+          <li><strong>Traffic & Safety Engineer:</strong> Involves corridor optimization, junction design, signal phasing, and road safety auditing. Key tools include PTV Vissim, Highway Capacity Software, and AutoCAD.</li>
+          <li><strong>Research & Academia:</strong> Academic research positions in universities, research labs (e.g., NATPAC, CRRI), and doctoral/postdoctoral research.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Research Publishing -->
+  <div id="modal-publishing" class="modal-overlay" onclick="closeModalOutside(event, 'modal-publishing')">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Publishing Research from Master's & Thesis Projects</div>
+        <button class="modal-close" onclick="closeModal('modal-publishing')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Transforming a Master's or PhD thesis into a peer-reviewed publication requires a distinct approach compared to thesis submission. While a thesis documents the comprehensive scope of research, a journal article focuses on a concise, impactful research contribution.</p>
+        <p><strong>Essential Steps:</strong></p>
+        <ul>
+          <li><strong>Identify the Specific Contribution:</strong> Extract individual core objectives rather than attempting to condense the entire thesis into one paper.</li>
+          <li><strong>Select Appropriate Outlets:</strong> Match the scope of your work with SCI/SCIE indexed journals or reputed peer-reviewed conference proceedings.</li>
+          <li><strong>Structure for Readership:</strong> Refine literature reviews to focus strictly on research gaps relevant to your chosen methodology and findings.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Tab Switching, Filtering, and Modals -->
   <script>
     function openTab(evt, tabId) {
       const panels = document.querySelectorAll('.tab-panel');
@@ -974,6 +1336,154 @@
 
       document.getElementById(tabId).classList.add('active');
       evt.currentTarget.classList.add('active');
+    }
+
+    /* Projects Filtering */
+    function filterItems(sectionId, filterGroup, evt) {
+      const section = document.getElementById(sectionId);
+      const filterBtns = section.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      evt.currentTarget.classList.add('active');
+
+      const items = section.querySelectorAll('.project-item');
+      items.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (filterGroup === 'all' || itemCategory === filterGroup) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    /* Publications Filtering: Journals vs Conferences */
+    function selectPublicationType(type, evt) {
+      const pubSection = document.getElementById('publications');
+      const filterBtns = pubSection.querySelectorAll('.filter-controls .filter-btn');
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      evt.currentTarget.classList.add('active');
+
+      const journalSubFilters = document.getElementById('journal-subfilters');
+      const confSubFilters = document.getElementById('conference-subfilters');
+
+      if (type === 'journals') {
+        journalSubFilters.style.display = 'flex';
+        confSubFilters.style.display = 'none';
+        filterJournals('all');
+      } else if (type === 'conferences') {
+        journalSubFilters.style.display = 'none';
+        confSubFilters.style.display = 'flex';
+        filterConferences('all');
+      }
+    }
+
+    /* Sub-filtering Journals */
+    function filterJournals(scope, evt) {
+      const subFilterContainer = document.getElementById('journal-subfilters');
+      if (evt) {
+        const subBtns = subFilterContainer.querySelectorAll('.sub-filter-btn');
+        subBtns.forEach(btn => btn.classList.remove('active'));
+        evt.currentTarget.classList.add('active');
+      } else {
+        const subBtns = subFilterContainer.querySelectorAll('.sub-filter-btn');
+        subBtns.forEach(btn => btn.classList.remove('active'));
+        subBtns[0].classList.add('active');
+      }
+
+      const journalItems = document.querySelectorAll('.journal-item');
+      const confItems = document.querySelectorAll('.conf-item');
+
+      confItems.forEach(item => item.style.display = 'none');
+
+      journalItems.forEach(item => {
+        const itemScope = item.getAttribute('data-scope');
+        if (scope === 'all' || itemScope === scope) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    /* Sub-filtering Conferences */
+    function filterConferences(scope, evt) {
+      const subFilterContainer = document.getElementById('conference-subfilters');
+      if (evt) {
+        const subBtns = subFilterContainer.querySelectorAll('.sub-filter-btn');
+        subBtns.forEach(btn => btn.classList.remove('active'));
+        evt.currentTarget.classList.add('active');
+      } else {
+        const subBtns = subFilterContainer.querySelectorAll('.sub-filter-btn');
+        subBtns.forEach(btn => btn.classList.remove('active'));
+        subBtns[0].classList.add('active');
+      }
+
+      const journalItems = document.querySelectorAll('.journal-item');
+      const confItems = document.querySelectorAll('.conf-item');
+
+      journalItems.forEach(item => item.style.display = 'none');
+
+      confItems.forEach(item => {
+        const itemScope = item.getAttribute('data-scope');
+        if (scope === 'all' || itemScope === scope) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    /* News Year Filtering */
+    function filterNews(year, evt) {
+      const newsSection = document.getElementById('news');
+      const filterBtns = newsSection.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      evt.currentTarget.classList.add('active');
+
+      const newsCards = newsSection.querySelectorAll('.news-year-card');
+      newsCards.forEach(card => {
+        const cardYear = card.getAttribute('data-year');
+        if (year === 'all' || cardYear === year) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    /* Blog Filtering */
+    function filterBlogs(category, evt) {
+      const blogSection = document.getElementById('blog');
+      const filterBtns = blogSection.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      evt.currentTarget.classList.add('active');
+
+      const blogCards = blogSection.querySelectorAll('.blog-card');
+      blogCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    /* Modal Functions for Reading Content Inline */
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeModalOutside(event, modalId) {
+      if (event.target === document.getElementById(modalId)) {
+        closeModal(modalId);
+      }
     }
   </script>
 </body>
