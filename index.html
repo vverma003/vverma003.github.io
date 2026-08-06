@@ -110,8 +110,7 @@
     }
 
     .cv-container {
-      margin-top: auto;
-      margin-bottom: 0.3rem;
+      margin-top: 2rem;
       width: 100%;
     }
     .cv-btn {
@@ -136,13 +135,38 @@
         box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
     }
 
+    .email-container {
+        width: 100%;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .email-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .email-btn:hover {
+        color: var(--accent-color);
+        border-color: var(--accent-color);
+        background-color: rgba(56, 189, 248, 0.05);
+        
+    }
+
     .social-links {
       display: flex;
       justify-content: center;
       gap: 0.3rem;
       flex-wrap: nowrap;
       margin-top: auto;
-      padding-top: 0.8rem;
+      padding-top: 0.9rem;
       border-top: 1px solid var(--border-color);
       width: 100%;
     }
@@ -280,9 +304,24 @@
     }
 
     .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-main);
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .date-inline {
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--accent-color);
+        background: var(--badge-bg);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        padding: 0.15rem 0.55rem;
+        border-radius: 6px;
+        line-height: 1.2;
     }
 
     .card-subtitle {
@@ -375,7 +414,7 @@
       </div>
 
       <p class="bio-snippet">
-        Specializing in Transportation Engineering, Urban Travel Demand Modelling, Public Transport Systems, and Gender Auditing.
+        Specializing in Public Transport, Micro-mobility, Gender Auditing, and Data-driven based Transport Research.
       </p>
     </div>
 
@@ -383,6 +422,13 @@
     <div class="cv-container">
       <a href="assets/CV_V.Verma.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
         <i class="fa-solid fa-arrow-up-right-from-square"></i> Download CV
+      </a>
+    </div>
+
+    <!-- Email Address Display -->
+    <div class="email-container">
+      <a href="mailto:vverma@tcd.ie" class="email-btn" title="Send Email">
+        <i class="fa-solid fa-envelope"></i> vverma@tcd.ie
       </a>
     </div>
 
@@ -448,9 +494,14 @@
           <p style="margin-bottom: 1rem;">
             Prior to joining Trinity College Dublin, he served as a Postdoctoral Research Scientist at the Civil Engineering Department at IIT Bombay, Mumbai. Additionally, he provides freelance technical consultancy services to industrial organizations.
           </p>
-          <p>
+          <p style="margin-bottom: 1rem;">
+            He holds a PhD from Transportation Engineering Group, Department of Civil Engineering, IIT Roorkee, India and a Masters in Transportation Engineering from NIT Karnataka Surathkal. Dr. Verma has industry experience with Mott MacDonald and over two years of involvement in industry-sponsored research projects, including gender auditing, public transport performance evaluation, and urban transport planning. His professional expertise spans the development of Road Development Master Plans, Urban Roads DPRs and FPRs, Travel Demand Modelling, and Bus Transport Systems.
+        </p>
+            <p style="margin-bottom: 1rem;">
             He is a technology enthusiast focused on integrating innovative data solutions to simplify and improve urban transport systems.
           </p>
+
+          <p style="margin-bottom: 3rem;"></p>
 
           <div class="quote-box">
             "Cities are an invention to maximize exchange opportunities and to minimize travel; the role of transport is to proclaim it." 
@@ -460,14 +511,13 @@
 
         <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-gears"></i> Core Expertise</h2>
         <div class="skills-grid">
-          <span class="badge">Travel Demand Modelling</span>
-          <span class="badge">Urban Transport Planning</span>
-          <span class="badge">Public Transport Evaluation</span>
+            <span class="badge">Transportation Planning</span>
+          <span class="badge">Public Transportation</span>
+          <span class="badge">Micro-mobility</span>
+          <span class="badge">Decision Analysis</span>
+          <span class="badge">Survey Methodology Design</span>
+          <span class="badge">Data-driven based Transport Analytics</span>
           <span class="badge">Gender Auditing</span>
-          <span class="badge">Road Development Master Plans</span>
-          <span class="badge">Urban Roads DPRs & FPRs</span>
-          <span class="badge">Bus Transport Systems</span>
-          <span class="badge">Freelance Technical Consultancy</span>
         </div>
       </section>
 
@@ -476,42 +526,80 @@
         <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Professional Experience</h2>
         
         <div class="card">
-          <div class="card-title">Postdoctoral Research Fellow</div>
+          <div class="card-title">
+            Postdoctoral Research Fellow
+            <span class="date-inline">Jan 2026 – Present</span>
+        </div>
           <div class="card-subtitle">Trinity College Dublin | Center for Transport Research</div>
           <div class="card-meta">Dublin, Ireland</div>
-          <p>Researching sustainable transport infrastructure, travel behavior, and advanced mobility models.</p>
+          <p>Researching on development of bike libraries for workspace locations and sustainable mobility solutions.</p>
         </div>
 
         <div class="card">
-          <div class="card-title">Postdoctoral Research Scientist</div>
-          <div class="card-subtitle">IIT Bombay</div>
+          <div class="card-title">
+            Postdoctoral Research Scientist
+            <span class="date-inline">June 2025 - Dec 2025</span>
+          </div>
+          <div class="card-title">
+            Postdoctoral Research Assistant
+            <span class="date-inline">Feb 2025 - June 2025</span>
+          </div>
+          <div class="card-subtitle">IIT Bombay | Department of Civil Engineering</div>
           <div class="card-meta">Mumbai, India</div>
-          <p>Led transportation engineering research projects, public transit evaluation, and urban mobility framework design.</p>
+          <p>Acted as a subject matter expert in traffic safety and transportation engineering projects.</p>
         </div>
 
         <div class="card">
-          <div class="card-title">Industry Consultant</div>
-          <div class="card-subtitle">Mott MacDonald</div>
+          <div class="card-title">
+            Graduate Engineer - Highways
+            <span class="date-inline">2017 - 2018</span>
+          </div>
+          <div class="card-subtitle">Mott MacDonald, India</div>
+          <p>Contributed to industry-sponsored transport planning, Highway Design, and Parking Studies.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            Engineer Transport
+            <span class="date-inline">2016 - 2017</span>
+          </div>
+          <div class="card-subtitle">Vasuprada Consultants LLP, India</div>
           <p>Contributed to industry-sponsored transport planning, DPRs/FPRs preparations, and master plan execution.</p>
         </div>
 
         <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
         
         <div class="card">
-          <div class="card-title">Ph.D. in Transportation Engineering</div>
-          <div class="card-subtitle">IIT Roorkee</div>
+          <div class="card-title">
+            Ph.D. in Transportation Engineering
+            <span class="date-inline">2018 - 2025</span>
+          </div>
+          <div class="card-subtitle">IIT Roorkee, India</div>
           <div class="card-meta">Department of Civil Engineering</div>
         </div>
 
         <div class="card">
-          <div class="card-title">M.Tech in Transportation Engineering</div>
-          <div class="card-subtitle">NIT Karnataka, Surathkal</div>
+          <div class="card-title">
+            M.Tech in Transportation Engineering
+            <span class="date-inline">2014 - 2016</span>
+          </div>
+          <div class="card-subtitle">NIT Karnataka, Surathkal, India</div>
+          <div class="card-meta">Department of Civil Engineering</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            B.Tech in Civil Engineering
+            <span class="date-inline">2010 - 2014</span>
+          </div>
+          <div class="card-subtitle">JNTU Hyderabad, India</div>
+          <div class="card-meta">Department of Civil Engineering</div>
         </div>
       </section>
 
-      <!-- TAB 3: RESEARCH & PROJECTS -->
+      <!-- TAB 3: PROJECTS -->
       <section id="research" class="tab-panel">
-        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Research & Projects</h2>
+        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Projects</h2>
         
         <div class="card">
           <div class="card-title">Public Transport Performance Evaluation & Gender Auditing</div>
@@ -526,7 +614,9 @@
         </div>
       </section>
 
-      <!-- TAB 4: TALKS & TEACHINGS -->
+      
+
+      <!-- TAB 5: TALKS & TEACHINGS -->
       <section id="talks" class="tab-panel">
         <h2 class="section-title"><i class="fa-solid fa-chalkboard-user"></i> Seminars & Teachings</h2>
         
@@ -538,18 +628,6 @@
         <div class="card">
           <div class="card-title">Academic Teachings</div>
           <p>Engaged in teaching and mentoring undergraduate and postgraduate engineering candidates in transportation modeling and infrastructure planning.</p>
-        </div>
-      </section>
-
-      <!-- TAB 5: CONTACT -->
-      <section id="contact" class="tab-panel">
-        <h2 class="section-title"><i class="fa-solid fa-envelope"></i> Get In Touch</h2>
-        
-        <div class="card">
-          <p style="margin-bottom: 1rem;">
-            Open for research collaborations, technical consultancy, and academic discussions.
-          </p>
-          <p><strong>Location:</strong> Dept. of Civil, Structural & Environmental Engineering, Trinity College Dublin, Ireland.</p>
         </div>
       </section>
 
