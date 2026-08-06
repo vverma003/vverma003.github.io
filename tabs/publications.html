@@ -1,0 +1,66 @@
+<section id="publications" class="tab-panel">
+  <h2 class="section-title"><i class="fa-solid fa-book-open"></i> Research & Publications</h2>
+  
+  <div class="filter-controls">
+    <button class="filter-btn active" onclick="selectPublicationType('journals', event)">Journals</button>
+    <button class="filter-btn" onclick="selectPublicationType('conferences', event)">Conferences</button>
+  </div>
+
+  <div id="journal-subfilters" class="sub-filter-controls">
+    <button class="sub-filter-btn active" onclick="filterJournals('all', event)">All Journals</button>
+    <button class="sub-filter-btn" onclick="filterJournals('sci', event)">SCI / SCIE / ESCI</button>
+    <button class="sub-filter-btn" onclick="filterJournals('scopus', event)">Scopus</button>
+    <button class="sub-filter-btn" onclick="filterJournals('working', event)">Working Paper</button>
+  </div>
+
+  <div id="conference-subfilters" class="sub-filter-controls" style="display: none;">
+    <button class="sub-filter-btn active" onclick="filterConferences('all', event)">All Conferences</button>
+    <button class="sub-filter-btn" onclick="filterConferences('international', event)">International</button>
+    <button class="sub-filter-btn" onclick="filterConferences('national', event)">National</button>
+  </div>
+
+  <div class="card pub-item journal-item" data-type="journals" data-scope="sci">
+    <div class="card-title">
+      Examining transit performance evaluation approaches in the context of developing countries
+      <span class="date-inline">2026</span>
+    </div>
+    <div class="card-subtitle">Public Transport [IF: 3.2, Q2]</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+
+  <div class="card pub-item journal-item" data-type="journals" data-scope="sci">
+    <div class="card-title">
+      How Do Stakeholders Perceive Transit Service Quality Attributes? – A study through Fuzzy-AHP
+      <span class="date-inline">2024</span>
+    </div>
+    <div class="card-subtitle">Expert Systems with Applications, Vol. 238, 122043 [IF: 11.5, Q1]</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+
+  <div class="card pub-item conf-item" data-type="conferences" data-scope="international" style="display: none;">
+    <div class="card-title">
+      Scaling Cycling: Health and Climate Impacts from a Bike Library
+      <span class="date-inline">2026</span>
+    </div>
+    <div class="card-subtitle">CRBAM, Ghent, Belgium (International)</div>
+    <p class="desc">Nasim Eslamirad, Vishwajeet Kishore Verma, Francesco Pilla, Brian Caulfield</p>
+  </div>
+
+  <div class="card pub-item conf-item" data-type="conferences" data-scope="international" style="display: none;">
+    <div class="card-title">
+      Analyzing Passengers' Preferences and Perceptions on Service Quality of a Transit: Integrating GUT Matrix Approach and IP Technique
+      <span class="date-inline">2026</span>
+    </div>
+    <div class="card-subtitle">17th WCTR, Toulouse, France (International)</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+
+  <div class="card pub-item conf-item" data-type="conferences" data-scope="international" style="display: none;">
+    <div class="card-title">
+      Analysing Stakeholders' Perceived Hierarchy of Transit Service Quality Attributes' using Fuzzy-AHP
+      <span class="date-inline">2023</span>
+    </div>
+    <div class="card-subtitle">102nd Transportation Research Board Annual Meeting, Washington D.C. (International)</div>
+    <p class="desc">Vishwajeet Kishore Verma and Rajat Rastogi</p>
+  </div>
+</section>

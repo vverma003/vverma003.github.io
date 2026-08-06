@@ -1,0 +1,176 @@
+<section id="blog" class="tab-panel">
+  <h2 class="section-title"><i class="fa-solid fa-pen-nib"></i> Blog & Writings</h2>
+
+  <div class="filter-controls">
+    <button class="filter-btn active" onclick="filterBlogs('all', event)">All Articles</button>
+    <button class="filter-btn" onclick="filterBlogs('transportation', event)">Transportation</button>
+    <button class="filter-btn" onclick="filterBlogs('prospective-candidate', event)">For Prospective Candidates</button>
+  </div>
+
+  <!-- BLOG POST 1 -->
+  <div class="card blog-card" data-category="transportation" id="post-1">
+    <div class="card-title">
+      Selecting Transit Systems for Indian Cities: Tram, Monorail, Metro, or BRTS?
+      <span class="date-inline">Transportation</span>
+    </div>
+    <div class="card-subtitle">Transit Selection Dynamics & City Planning Requirements</div>
+    <p class="desc">
+      Picking up a single transit mode as a universal solution for all Indian cities is inefficient. Mode selection must strictly align with city travel dynamics, geographical developments, and horizon-year demand requirements.
+    </p>
+
+    <div class="blog-action-bar">
+      <button class="read-btn" onclick="openModal('modal-transit')"><i class="fa-solid fa-book-open"></i> Read Full Article</button>
+      <button class="upvote-btn" onclick="toggleUpvote('post-1')"><i class="fa-solid fa-thumbs-up"></i> Upvote (<span class="upvote-count">14</span>)</button>
+    </div>
+
+    <div class="comments-section">
+      <div class="comments-title"><i class="fa-solid fa-comments"></i> Discussion (<span class="comment-count">1</span>)</div>
+      <div class="comment-input-box">
+        <input type="text" placeholder="Your Name" class="comment-name">
+        <textarea rows="2" placeholder="Write a comment..." class="comment-msg"></textarea>
+        <button class="comment-submit-btn" onclick="addComment('post-1')">Post Comment</button>
+      </div>
+      <ul class="comment-list">
+        <li class="comment-item">
+          <div class="comment-author">Prof. R. Sharma</div>
+          <div class="comment-text">Great analysis regarding multi-modal integration in Tier-2 Indian cities!</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BLOG POST 2 -->
+  <div class="card blog-card" data-category="transportation" id="post-2">
+    <div class="card-title">
+      Application of Mathematics in Public Transportation
+      <span class="date-inline">Transportation</span>
+    </div>
+    <div class="card-subtitle">Supply-Demand Modeling & Route Optimization</div>
+    <p class="desc">
+      Public transport is fundamentally built on supply-demand equilibrium. From estimating trip generation and distribution matrices to headway optimization and travel time reliability, mathematics drives urban transport engineering.
+    </p>
+
+    <div class="blog-action-bar">
+      <button class="read-btn" onclick="openModal('modal-math')"><i class="fa-solid fa-book-open"></i> Read Full Article</button>
+      <button class="upvote-btn" onclick="toggleUpvote('post-2')"><i class="fa-solid fa-thumbs-up"></i> Upvote (<span class="upvote-count">22</span>)</button>
+    </div>
+
+    <div class="comments-section">
+      <div class="comments-title"><i class="fa-solid fa-comments"></i> Discussion (<span class="comment-count">0</span>)</div>
+      <div class="comment-input-box">
+        <input type="text" placeholder="Your Name" class="comment-name">
+        <textarea rows="2" placeholder="Write a comment..." class="comment-msg"></textarea>
+        <button class="comment-submit-btn" onclick="addComment('post-2')">Post Comment</button>
+      </div>
+      <ul class="comment-list"></ul>
+    </div>
+  </div>
+
+  <!-- BLOG POST 3 -->
+  <div class="card blog-card" data-category="prospective-candidate" id="post-3">
+    <div class="card-title">
+      Navigating Career Opportunities in Transportation Engineering
+      <span class="date-inline">Prospective Candidates</span>
+    </div>
+    <div class="card-subtitle">Industry vs Academia & Job Preparation Strategy</div>
+    <p class="desc">
+      A practical roadmap for Masters and PhD candidates seeking core roles in consultancy firms, government policymaking bodies, infrastructure developers, and academic research units.
+    </p>
+
+    <div class="blog-action-bar">
+      <button class="read-btn" onclick="openModal('modal-careers')"><i class="fa-solid fa-book-open"></i> Read Full Article</button>
+      <button class="upvote-btn" onclick="toggleUpvote('post-3')"><i class="fa-solid fa-thumbs-up"></i> Upvote (<span class="upvote-count">35</span>)</button>
+    </div>
+
+    <div class="comments-section">
+      <div class="comments-title"><i class="fa-solid fa-comments"></i> Discussion (<span class="comment-count">1</span>)</div>
+      <div class="comment-input-box">
+        <input type="text" placeholder="Your Name" class="comment-name">
+        <textarea rows="2" placeholder="Write a comment..." class="comment-msg"></textarea>
+        <button class="comment-submit-btn" onclick="addComment('post-3')">Post Comment</button>
+      </div>
+      <ul class="comment-list">
+        <li class="comment-item">
+          <div class="comment-author">Aman K.</div>
+          <div class="comment-text">Very practical insights for PhD scholars looking for industry transitions. Thanks Dr. Verma!</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BLOG POST 4 -->
+  <div class="card blog-card" data-category="prospective-candidate" id="post-4">
+    <div class="card-title">
+      Publishing Research from Master's & Thesis Projects
+      <span class="date-inline">Prospective Candidates</span>
+    </div>
+    <div class="card-subtitle">Thesis vs Peer-Reviewed Manuscript Publishing</div>
+    <p class="desc">
+      Converting thesis work into peer-reviewed journal articles requires distinct structural changes. Key strategies on journal selection, addressing reviewer comments, and managing publication timelines.
+    </p>
+
+    <div class="blog-action-bar">
+      <button class="read-btn" onclick="openModal('modal-publishing')"><i class="fa-solid fa-book-open"></i> Read Full Article</button>
+      <button class="upvote-btn" onclick="toggleUpvote('post-4')"><i class="fa-solid fa-thumbs-up"></i> Upvote (<span class="upvote-count">19</span>)</button>
+    </div>
+
+    <div class="comments-section">
+      <div class="comments-title"><i class="fa-solid fa-comments"></i> Discussion (<span class="comment-count">0</span>)</div>
+      <div class="comment-input-box">
+        <input type="text" placeholder="Your Name" class="comment-name">
+        <textarea rows="2" placeholder="Write a comment..." class="comment-msg"></textarea>
+        <button class="comment-submit-btn" onclick="addComment('post-4')">Post Comment</button>
+      </div>
+      <ul class="comment-list"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODALS FOR READING ARTICLES -->
+<div id="modal-transit" class="modal-overlay" onclick="closeModalOutside(event, 'modal-transit')">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="modal-title">Selecting Transit Systems for Indian Cities</div>
+      <button class="modal-close" onclick="closeModal('modal-transit')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Picking up a sole transit mode as a better option for all kinds of Indian cities is an inefficient choice. Instead, selection should align strictly with city travel dynamics, geographical developments, and horizon-year requirements.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-math" class="modal-overlay" onclick="closeModalOutside(event, 'modal-math')">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="modal-title">Application of Mathematics in Public Transportation</div>
+      <button class="modal-close" onclick="closeModal('modal-math')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Public Transport service represents supply provided to meet commuters' travel demand across an urban network, driven by mathematical optimization and spatial modeling.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-careers" class="modal-overlay" onclick="closeModalOutside(event, 'modal-careers')">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="modal-title">Navigating Career Opportunities in Transportation Engineering</div>
+      <button class="modal-close" onclick="closeModal('modal-careers')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>A practical roadmap for Masters and PhD candidates seeking core roles in consultancy firms, government bodies, and research units.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-publishing" class="modal-overlay" onclick="closeModalOutside(event, 'modal-publishing')">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="modal-title">Publishing Research from Master's & Thesis Projects</div>
+      <button class="modal-close" onclick="closeModal('modal-publishing')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Transforming a Master's or PhD thesis into a peer-reviewed publication requires extracting core objectives and focusing on specific methodological contributions.</p>
+    </div>
+  </div>
+</div>
