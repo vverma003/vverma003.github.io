@@ -1,13 +1,14 @@
 <section id="projects" class="tab-panel">
   <h2 class="section-title"><i class="fa-solid fa-flask"></i> Projects Engagement</h2>
-  
+
   <div class="filter-controls">
     <button class="filter-btn active" onclick="filterItems('projects', 'all', event)">All</button>
     <button class="filter-btn" onclick="filterItems('projects', 'academic', event)">Academic</button>
     <button class="filter-btn" onclick="filterItems('projects', 'industrial', event)">Industrial</button>
   </div>
 
-  <div class="card project-item" data-category="academic">
+  <!-- Academic Projects -->
+  <div class="card project-item" data-category="academic" data-theme="micro-mobility">
     <div class="card-title">
       SEAI: Bike Library
       <span class="date-inline">Jan 2025 - Present</span>
@@ -17,27 +18,7 @@
     <p class="desc">Researching active travel and sustainable mobility interventions across workspace locations.</p>
   </div>
 
-  <div class="card project-item" data-category="industrial">
-    <div class="card-title">
-      Review of Traffic Dispersals Schemes of Thane-Borivali Twin Tunnel Project
-      <span class="date-inline">Feb 2025 - Dec 2025</span>
-    </div>
-    <div class="card-subtitle">IIT Bombay</div>
-    <div class="card-meta">Role: Research Associate | Advisor: Prof. P. Vedagiri</div>
-    <p class="desc">Analyzing traffic dispersal alternatives, safety measures, conflicting movements, V/C ratios, and LOS parameters.</p>
-  </div>
-
-  <div class="card project-item" data-category="industrial">
-    <div class="card-title">
-      Exploring Mobility of Care related Travels in Bangalore, India
-      <span class="date-inline">Feb 2025 - Sep 2025</span>
-    </div>
-    <div class="card-subtitle">Independent Freelance</div>
-    <div class="card-meta">Role: Research Consultant</div>
-    <p class="desc">Cleaning and analyzing household survey data to extract insights related to mobility of care and travel behaviors.</p>
-  </div>
-
-  <div class="card project-item" data-category="academic">
+  <div class="card project-item" data-category="academic" data-theme="public-transport">
     <div class="card-title">
       Ph.D. Thesis: Development of a Performance Evaluation Framework for Public Transport Systems
       <span class="date-inline">Jan 2018 - Jan 2025</span>
@@ -47,7 +28,60 @@
     <p class="desc">Formulated survey methodologies, decision-making frameworks, fuzzy-AHP, and applied machine learning models on passenger satisfaction datasets.</p>
   </div>
 
-  <div class="card project-item" data-category="industrial">
+  <div class="card project-item" data-category="academic" data-theme="public-transport">
+    <div class="card-title">
+      Master's Thesis: Bus Lane Capacity Estimation and Frequency Optimization
+      <span class="date-inline">Sep 2015 - June 2016</span>
+    </div>
+    <div class="card-subtitle">NITK Surathkal & CSIR-CRRI</div>
+    <!-- FIXED: Added missing </div> here -->
+    <div class="card-meta">Role: Research Scholar | Advisor: Prof. AU Ravi Shankar and Dr. Ch. Ravi Shekhar</div> 
+    <p class="desc">Formulating questionnaire and videographic survey methodologies, estimating Bus Dwell Time and Hourly Demand, developping Bus Travel Demand Model in PTV Visum, and bus lane capacity.</p>
+  </div>
+
+  <div class="card project-item" data-category="academic" data-theme="public-transport">
+    <div class="card-title">
+      Bus Travel Demand Assignment
+      <span class="date-inline">May 2015 - July 2015</span>
+    </div>
+    <div class="card-subtitle">CSIR-CRRI</div>
+    <!-- FIXED: Added missing </div> here -->
+    <div class="card-meta">Role: Research Intern | Advisor: Senior Scientist Dr. Ch. Ravi Shekhar</div> 
+    <p class="desc">Developing 4 stageBus Travel Demand Model in PTV Visum.</p>
+  </div>
+
+  <!-- Industrial Projects -->
+  <div class="card project-item" data-category="industrial" data-theme="traffic-safety">
+    <div class="card-title">
+      Review of Traffic Dispersals Schemes of Thane-Borivali Twin Tunnel Project
+      <span class="date-inline">Feb 2025 - Dec 2025</span>
+    </div>
+    <div class="card-subtitle">IIT Bombay</div>
+    <div class="card-meta">Role: Research Associate | Advisor: Prof. P. Vedagiri</div>
+    <p class="desc">Analyzing traffic dispersal alternatives, safety measures, conflicting movements, V/C ratios, and LOS parameters.</p>
+  </div>
+
+  <div class="card project-item" data-category="industrial" data-theme="gender-mainstreaming">
+    <div class="card-title">
+      Exploring Mobility of Care related Travels in Bangalore, India
+      <span class="date-inline">Feb 2025 - Sep 2025</span>
+    </div>
+    <div class="card-subtitle">Independent Freelance</div>
+    <div class="card-meta">Role: Research Consultant</div>
+    <p class="desc">Cleaning and analyzing household survey data to extract insights related to mobility of care and travel behaviors.</p>
+  </div>
+
+  <div class="card project-item" data-category="industrial" data-theme="highway-geometric-design traffic-engineering">
+    <div class="card-title">
+      Road Master Plan, Saudi & Mubarak Al-Kabeer Port, Kuwait
+      <span class="date-inline">Nov 2017 - Jan 2018</span>
+    </div>
+    <div class="card-subtitle">Mott MacDonald, New Delhi</div>
+    <div class="card-meta">Role: Graduate Engineer - Highway</div>
+    <p class="desc">Designing on street Parking layout, LRT Station, Bus Stop, Driveways, and suitable Traffic Signs and Road Markings.</p>
+  </div>
+
+  <div class="card project-item" data-category="industrial" data-theme="transport-planning">
     <div class="card-title">
       Bihar Road Master Plan Phase-2 & Dhanbad Urban Roads DPR
       <span class="date-inline">2016 - 2017</span>
