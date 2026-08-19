@@ -469,6 +469,41 @@ h2.section-title i {
   flex-shrink: 0;      /* Prevents the date box from compressing */
 }
 
+/* Base badge styling */
+.status-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  vertical-align: middle;
+}
+
+/* Variant 1: Submitted / Under Review (Amber/Gold glow) */
+.status-badge.submitted {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Variant 2: In Preparation (Purple/Indigo tint) */
+.status-badge.prep {
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+/* Subtitle layout alignment */
+.card-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-top: 0.25rem;
+}
+
 .card-subtitle {
   font-size: 0.9rem;
   color: var(--accent-color);
@@ -783,4 +818,28 @@ footer {
     height: auto;
     max-height: 200px;
   }
+}
+
+.theme-group-title {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sub-group-title {
+  font-size: 1rem;
+  color: var(--text-main);
+  opacity: 0.85;
+  margin: 0.75rem 0 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.25rem;
+}
+
+.theme-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }

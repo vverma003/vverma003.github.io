@@ -1,0 +1,39 @@
+<section id="research-themes" class="tab-panel">
+  <h2 class="section-title"><i class="fa-solid fa-lightbulb"></i> Research Themes</h2>
+
+  <!-- Theme Selector Buttons -->
+  <div class="filter-controls">
+    <button class="filter-btn active" onclick="filterResearchTheme('public-transport', event)">
+      Public Transport
+    </button>
+    <button class="filter-btn" onclick="filterResearchTheme('micro-mobility', event)">
+      Active Travel & eBikes
+    </button>
+    <button class="filter-btn" onclick="filterResearchTheme('service-quality', event)">
+      Service Quality & Perception
+    </button>
+  </div>
+
+  <!-- Dynamic Theme Container -->
+  <div id="theme-results">
+    <div id="theme-projects-group" class="theme-section">
+      <h3 class="theme-group-title"><i class="fa-solid fa-diagram-project"></i> Related Research Projects</h3>
+      <div id="theme-projects-list" class="theme-card-container"></div>
+    </div>
+
+    <div id="theme-pubs-group" class="theme-section" style="margin-top: 2rem;">
+      <h3 class="theme-group-title"><i class="fa-solid fa-book-open"></i> Related Publications</h3>
+      
+      <!-- Sub-type headers rendered dynamically inside script -->
+      <div id="theme-journals-container">
+        <h4 class="sub-group-title">Journals</h4>
+        <div id="theme-journals-list" class="theme-card-container"></div>
+      </div>
+
+      <div id="theme-conferences-container" style="margin-top: 1rem;">
+        <h4 class="sub-group-title">Conferences</h4>
+        <div id="theme-conferences-list" class="theme-card-container"></div>
+      </div>
+    </div>
+  </div>
+</section>
