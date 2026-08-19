@@ -1,22 +1,34 @@
-// Load Tab HTML dynamically into #content-area
+/* ==========================================================================
+   GLOBAL STATE & CACHING
+   ========================================================================== */
+let cachedPublicationsHTML = null;
+let cachedProjectsHTML = null;
+
+/* ==========================================================================
+   CORE TAB ROUTING & LOADING (HASH-BASED)
+   ========================================================================== */
 function loadTab(tabName, evt) {
   const contentArea = document.getElementById('content-area');
+  if (!contentArea) return;
 
-  // 1. Update the URL hash (allows bookmarking and sharing links)
-  if (window.location.hash !== `#${tabName}`) {
-    history.pushState(null, '', `#${tabName}`);
+  // 1. Update Navigation Bar Active State
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  if (evt && evt.currentTarget) {
+    evt.currentTarget.classList.add('active');
+  } else {
+    const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => {
+      const onclickAttr = btn.getAttribute('onclick') || '';
+      return onclickAttr.includes(`'${tabName}'`);
+    });
+    if (targetBtn) targetBtn.classList.add('active');
   }
 
-  // 2. Highlight the active navbar button
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    // Matches explicit click OR programmatic load from URL hash
-    const isTarget = evt 
-      ? btn === evt.currentTarget 
-      : btn.getAttribute('onclick')?.includes(`'${tabName}'`);
-    btn.classList.toggle('active', !!isTarget);
-  });
+  // 2. Hash-based Routing (Prevents 404s on static hosting like GitHub Pages)
+  if (window.location.hash !== `#${tabName}`) {
+    history.pushState({ tab: tabName }, '', `#${tabName}`);
+  }
 
-  // 3. Fetch tab content dynamically
+  // 3. Fetch Tab HTML
   fetch(`tabs/${tabName}.html`)
     .then(response => {
       if (!response.ok) throw new Error(`Could not load tabs/${tabName}.html`);
@@ -25,15 +37,15 @@ function loadTab(tabName, evt) {
     .then(html => {
       contentArea.innerHTML = html;
 
-      // Initialize specific tab logic
+      // Tab Specific Initializations
       if (tabName === 'publications') {
         cachedPublicationsHTML = html;
-        if (typeof updatePublicationCounts === 'function') updatePublicationCounts();
-        if (typeof sortPublicationsByYear === 'function') sortPublicationsByYear();
+        updatePublicationCounts();
+        sortPublicationsByYear();
       } else if (tabName === 'projects') {
         cachedProjectsHTML = html;
       } else if (tabName === 'research') {
-        if (typeof initResearchThemeView === 'function') initResearchThemeView('public-transport');
+        initResearchThemeView('public-transport');
       }
     })
     .catch(err => {
@@ -41,12 +53,21 @@ function loadTab(tabName, evt) {
     });
 }
 
-// Load default tab on page startup
-document.addEventListener('DOMContentLoaded', () => {
-  loadTab('about');
-});
+// Router Initializer via Hash
+function handleHashNavigation() {
+  const hash = window.location.hash.replace('#', '').trim();
+  const validTabs = ['about', 'publications', 'projects', 'research', 'talks', 'blog', 'news'];
+  const targetTab = validTabs.includes(hash) ? hash : 'about';
+  loadTab(targetTab);
+}
 
-/* --- Filtering Functions --- */
+// Event Listeners for Page Load and Browser History (Back/Forward)
+document.addEventListener('DOMContentLoaded', handleHashNavigation);
+window.addEventListener('popstate', handleHashNavigation);
+
+/* ==========================================================================
+   PUBLICATIONS & PROJECTS FILTERING & SORTING
+   ========================================================================== */
 function filterItems(sectionId, filterGroup, evt) {
   const section = document.getElementById(sectionId);
   if (!section) return;
@@ -64,40 +85,34 @@ function sortPublicationsByYear() {
   const pubSection = document.getElementById('publications');
   if (!pubSection) return;
 
-  // Select all publication cards
   const pubCards = Array.from(pubSection.querySelectorAll('.pub-item'));
 
-  // Sort array
   pubCards.sort((a, b) => {
     const scopeA = a.getAttribute('data-scope');
     const scopeB = b.getAttribute('data-scope');
 
-    // 1. Force 'working' papers to the top
+    // 1. Force working papers to top
     if (scopeA === 'working' && scopeB !== 'working') return -1;
     if (scopeA !== 'working' && scopeB === 'working') return 1;
 
-    // 2. Sort by year descending (newest first)
+    // 2. Sort descending by year
     const yearA = parseInt(a.querySelector('.date-inline')?.textContent || '0', 10);
     const yearB = parseInt(b.querySelector('.date-inline')?.textContent || '0', 10);
     return yearB - yearA;
   });
 
-  // Re-append cards to DOM in sorted order
   pubCards.forEach(card => pubSection.appendChild(card));
 }
 
-/* Update Counts Function (Safe against missing elements) */
 function updatePublicationCounts() {
   const pubSection = document.getElementById('publications');
   if (!pubSection) return;
 
-  // Helper to safely assign text content if element exists
   const setBadge = (id, count) => {
     const el = document.getElementById(id);
     if (el) el.textContent = `(${count})`;
   };
 
-  // Main Category Counts
   const journalCards = pubSection.querySelectorAll('.pub-item[data-type="journals"]');
   const conferenceCards = pubSection.querySelectorAll('.pub-item[data-type="conferences"]');
   const codeCards = pubSection.querySelectorAll('.pub-item[data-type="codes"]');
@@ -108,7 +123,6 @@ function updatePublicationCounts() {
   setBadge('count-codes', codeCards.length);
   setBadge('count-dissertation', dissertationCards.length);
 
-  // Journal Sub-Filter Counts
   const sciJournals = pubSection.querySelectorAll('.pub-item[data-type="journals"][data-scope="sci"]');
   const scopusJournals = pubSection.querySelectorAll('.pub-item[data-type="journals"][data-scope="scopus"]');
   const workingJournals = pubSection.querySelectorAll('.pub-item[data-type="journals"][data-scope="working"]');
@@ -118,7 +132,6 @@ function updatePublicationCounts() {
   setBadge('count-journals-scopus', scopusJournals.length);
   setBadge('count-journals-working', workingJournals.length);
 
-  // Conference Sub-Filter Counts
   const intConferences = pubSection.querySelectorAll('.pub-item[data-type="conferences"][data-scope="international"]');
   const natConferences = pubSection.querySelectorAll('.pub-item[data-type="conferences"][data-scope="national"]');
 
@@ -127,7 +140,6 @@ function updatePublicationCounts() {
   setBadge('count-conferences-national', natConferences.length);
 }
 
-/* Main Category Switcher */
 function selectPublicationType(type, evt) {
   const pubSection = document.getElementById('publications');
   if (!pubSection) return;
@@ -158,7 +170,6 @@ function selectPublicationType(type, evt) {
   }
 }
 
-/* Sub-filtering Journals */
 function filterJournals(scope, evt) {
   const subContainer = document.getElementById('journal-subfilters');
   if (!subContainer) return;
@@ -167,10 +178,7 @@ function filterJournals(scope, evt) {
   btns.forEach(b => b.classList.remove('active'));
   if (evt) evt.currentTarget.classList.add('active'); else if (btns[0]) btns[0].classList.add('active');
 
-  // Hide all non-journal items
   document.querySelectorAll('.conf-item, .code-item, .dissertation-item').forEach(i => i.style.display = 'none');
-
-  // Show matching journal items
   document.querySelectorAll('.journal-item').forEach(item => {
     item.style.display = (scope === 'all' || item.getAttribute('data-scope') === scope) ? 'block' : 'none';
   });
@@ -178,7 +186,6 @@ function filterJournals(scope, evt) {
   sortPublicationsByYear();
 }
 
-/* Sub-filtering Conferences */
 function filterConferences(scope, evt) {
   const subContainer = document.getElementById('conference-subfilters');
   if (!subContainer) return;
@@ -187,10 +194,7 @@ function filterConferences(scope, evt) {
   btns.forEach(b => b.classList.remove('active'));
   if (evt) evt.currentTarget.classList.add('active'); else if (btns[0]) btns[0].classList.add('active');
 
-  // Hide all non-conference items
   document.querySelectorAll('.journal-item, .code-item, .dissertation-item').forEach(i => i.style.display = 'none');
-
-  // Show matching conference items
   document.querySelectorAll('.conf-item').forEach(item => {
     item.style.display = (scope === 'all' || item.getAttribute('data-scope') === scope) ? 'block' : 'none';
   });
@@ -198,6 +202,9 @@ function filterConferences(scope, evt) {
   sortPublicationsByYear();
 }
 
+/* ==========================================================================
+   BLOG & NEWS FILTERING
+   ========================================================================== */
 function filterNews(year, evt) {
   const section = document.getElementById('news');
   if (!section) return;
@@ -222,7 +229,101 @@ function filterBlogs(category, evt) {
   });
 }
 
-/* --- Modal Reader Functions --- */
+/* ==========================================================================
+   RESEARCH THEME ENGINE (ASYNC CACHED CROSS-REFERENCING)
+   ========================================================================== */
+async function initResearchThemeView(themeKey) {
+  if (!cachedPublicationsHTML) {
+    try {
+      const res = await fetch('tabs/publications.html');
+      cachedPublicationsHTML = await res.text();
+    } catch(e) { console.error('Error prefetching publications:', e); }
+  }
+
+  if (!cachedProjectsHTML) {
+    try {
+      const res = await fetch('tabs/projects.html');
+      cachedProjectsHTML = await res.text();
+    } catch(e) { console.error('Error prefetching projects:', e); }
+  }
+
+  renderThemeCards(themeKey);
+}
+
+function filterResearchTheme(themeKey, evt) {
+  const section = document.getElementById('research-themes');
+  if (!section) return;
+
+  section.querySelectorAll('.filter-controls .filter-btn').forEach(btn => btn.classList.remove('active'));
+  if (evt) evt.currentTarget.classList.add('active');
+
+  renderThemeCards(themeKey);
+}
+
+function renderThemeCards(themeKey) {
+  const pubDoc = new DOMParser().parseFromString(cachedPublicationsHTML || '', 'text/html');
+  const projDoc = new DOMParser().parseFromString(cachedProjectsHTML || '', 'text/html');
+
+  const projectsGroup = document.getElementById('theme-projects-group');
+  const projectsList = document.getElementById('theme-projects-list');
+  const pubsGroup = document.getElementById('theme-pubs-group');
+  const journalsContainer = document.getElementById('theme-journals-container');
+  const journalsList = document.getElementById('theme-journals-list');
+  const confsContainer = document.getElementById('theme-conferences-container');
+  const confsList = document.getElementById('theme-conferences-list');
+
+  if (!projectsList || !journalsList || !confsList) return;
+
+  projectsList.innerHTML = '';
+  journalsList.innerHTML = '';
+  confsList.innerHTML = '';
+
+  // Render Matching Projects
+  const matchedProjects = projDoc.querySelectorAll(`.project-item[data-theme~="${themeKey}"]`);
+  if (matchedProjects.length > 0) {
+    projectsGroup.style.display = 'block';
+    matchedProjects.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.style.display = 'block';
+      projectsList.appendChild(clone);
+    });
+  } else {
+    projectsGroup.style.display = 'none';
+  }
+
+  // Render Matching Journals
+  const matchedJournals = pubDoc.querySelectorAll(`.journal-item[data-theme~="${themeKey}"]`);
+  if (matchedJournals.length > 0) {
+    journalsContainer.style.display = 'block';
+    matchedJournals.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.style.display = 'block';
+      journalsList.appendChild(clone);
+    });
+  } else {
+    journalsContainer.style.display = 'none';
+  }
+
+  // Render Matching Conferences
+  const matchedConfs = pubDoc.querySelectorAll(`.conf-item[data-theme~="${themeKey}"]`);
+  if (matchedConfs.length > 0) {
+    confsContainer.style.display = 'block';
+    matchedConfs.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.style.display = 'block';
+      confsList.appendChild(clone);
+    });
+  } else {
+    confsContainer.style.display = 'none';
+  }
+
+  // Toggle Parent Publication Group
+  pubsGroup.style.display = (matchedJournals.length + matchedConfs.length > 0) ? 'block' : 'none';
+}
+
+/* ==========================================================================
+   MODAL CONTROLS & INTERACTIVE FEATURES
+   ========================================================================== */
 function openModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
@@ -243,7 +344,6 @@ function closeModalOutside(event, modalId) {
   if (event.target === document.getElementById(modalId)) closeModal(modalId);
 }
 
-/* --- Upvote & Comment Functions --- */
 function toggleUpvote(postId) {
   const card = document.getElementById(postId);
   if (!card) return;
@@ -287,158 +387,3 @@ function addComment(postId) {
   nameInput.value = '';
   msgInput.value = '';
 }
-
-// Global memory caches to avoid re-fetching tabs repeatedly
-let cachedPublicationsHTML = null;
-let cachedProjectsHTML = null;
-
-// Extend loadTab to handle 'research' loading
-const originalLoadTab = loadTab;
-function loadTab(tabName, evt) {
-  const contentArea = document.getElementById('content-area');
-
-  if (evt) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    evt.currentTarget.classList.add('active');
-  }
-
-  fetch(`tabs/${tabName}.html`)
-    .then(response => {
-      if (!response.ok) throw new Error(`Could not load tabs/${tabName}.html`);
-      return response.text();
-    })
-    .then(html => {
-      contentArea.innerHTML = html;
-
-      if (tabName === 'publications') {
-        cachedPublicationsHTML = html; // Cache HTML
-        updatePublicationCounts();
-        sortPublicationsByYear();
-      } else if (tabName === 'projects') {
-        cachedProjectsHTML = html; // Cache HTML
-      } else if (tabName === 'research') {
-        // Automatically display default theme on tab view load
-        initResearchThemeView('public-transport');
-      }
-    })
-    .catch(err => {
-      contentArea.innerHTML = `<div class="card"><p style="color:#ef4444;">Error loading tab: ${err.message}</p></div>`;
-    });
-}
-
-// Fetch source files if not cached and render cards matching theme
-async function initResearchThemeView(themeKey) {
-  // Fetch tabs in background if user hasn't visited them yet
-  if (!cachedPublicationsHTML) {
-    try {
-      const res = await fetch('tabs/publications.html');
-      cachedPublicationsHTML = await res.text();
-    } catch(e) { console.error('Error prefetching publications', e); }
-  }
-
-  if (!cachedProjectsHTML) {
-    try {
-      const res = await fetch('tabs/projects.html');
-      cachedProjectsHTML = await res.text();
-    } catch(e) { console.error('Error prefetching projects', e); }
-  }
-
-  renderThemeCards(themeKey);
-}
-
-function filterResearchTheme(themeKey, evt) {
-  const section = document.getElementById('research-themes');
-  if (!section) return;
-
-  section.querySelectorAll('.filter-controls .filter-btn').forEach(btn => btn.classList.remove('active'));
-  if (evt) evt.currentTarget.classList.add('active');
-
-  renderThemeCards(themeKey);
-}
-
-function renderThemeCards(themeKey) {
-  // Create temporary DOM elements to query cached HTML strings
-  const pubDoc = new DOMParser().parseFromString(cachedPublicationsHTML || '', 'text/html');
-  const projDoc = new DOMParser().parseFromString(cachedProjectsHTML || '', 'text/html');
-
-  // Query containers
-  const projectsGroup = document.getElementById('theme-projects-group');
-  const projectsList = document.getElementById('theme-projects-list');
-
-  const pubsGroup = document.getElementById('theme-pubs-group');
-  const journalsContainer = document.getElementById('theme-journals-container');
-  const journalsList = document.getElementById('theme-journals-list');
-
-  const confsContainer = document.getElementById('theme-conferences-container');
-  const confsList = document.getElementById('theme-conferences-list');
-
-  if (!projectsList || !journalsList || !confsList) return;
-
-  // Clear previous entries
-  projectsList.innerHTML = '';
-  journalsList.innerHTML = '';
-  confsList.innerHTML = '';
-
-  // 1. Populate Projects
-  const matchedProjects = projDoc.querySelectorAll(`.project-item[data-theme~="${themeKey}"]`);
-  if (matchedProjects.length > 0) {
-    projectsGroup.style.display = 'block';
-    matchedProjects.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.style.display = 'block';
-      projectsList.appendChild(clone);
-    });
-  } else {
-    projectsGroup.style.display = 'none';
-  }
-
-  // 2. Populate Journal Publications
-  const matchedJournals = pubDoc.querySelectorAll(`.journal-item[data-theme~="${themeKey}"]`);
-  if (matchedJournals.length > 0) {
-    journalsContainer.style.display = 'block';
-    matchedJournals.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.style.display = 'block';
-      journalsList.appendChild(clone);
-    });
-  } else {
-    journalsContainer.style.display = 'none';
-  }
-
-  // 3. Populate Conference Publications
-  const matchedConfs = pubDoc.querySelectorAll(`.conf-item[data-theme~="${themeKey}"]`);
-  if (matchedConfs.length > 0) {
-    confsContainer.style.display = 'block';
-    matchedConfs.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.style.display = 'block';
-      confsList.appendChild(clone);
-    });
-  } else {
-    confsContainer.style.display = 'none';
-  }
-
-  // 4. Toggle Parent "Related Publications" Group Header
-  const totalPubs = matchedJournals.length + matchedConfs.length;
-  if (totalPubs > 0) {
-    pubsGroup.style.display = 'block';
-  } else {
-    pubsGroup.style.display = 'none';
-  }
-}
-
-// Helper: Determine which tab to load based on URL hash
-function handleHashNavigation() {
-  // Extract hash without '#' (e.g., 'research' from '#research')
-  const hash = window.location.hash.substring(1);
-  const defaultTab = 'about'; // Set your default homepage tab here
-  
-  const targetTab = hash || defaultTab;
-  loadTab(targetTab);
-}
-
-// 1. On page initial load
-document.addEventListener('DOMContentLoaded', handleHashNavigation);
-
-// 2. On browser Back / Forward buttons click
-window.addEventListener('popstate', handleHashNavigation);

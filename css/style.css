@@ -502,12 +502,9 @@ h2.section-title i {
   align-items: center;
   gap: 0.2rem;
   margin-top: 0.25rem;
-}
-
-.card-subtitle {
+  margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: var(--accent-color);
-  margin-bottom: 0.5rem;
 }
 
 .card-meta {
