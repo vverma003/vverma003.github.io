@@ -91,16 +91,41 @@ function sortPublicationsByYear() {
     const scopeA = a.getAttribute('data-scope');
     const scopeB = b.getAttribute('data-scope');
 
-    // 1. Force working papers to top
+    // 1. Force working papers to the top
     if (scopeA === 'working' && scopeB !== 'working') return -1;
     if (scopeA !== 'working' && scopeB === 'working') return 1;
 
-    // 2. Sort descending by year
-    const yearA = parseInt(a.querySelector('.date-inline')?.textContent || '0', 10);
-    const yearB = parseInt(b.querySelector('.date-inline')?.textContent || '0', 10);
-    return yearB - yearA;
+    // 2. Helper function to extract or parse timestamp
+    const getTime = (card) => {
+      const dataDate = card.getAttribute('data-date');
+      if (dataDate) {
+        return new Date(dataDate).getTime();
+      }
+
+      // Fallback: parse date string like "Sep 16-18, 2026" or plain year "2026"
+      const dateText = card.querySelector('.date-inline')?.textContent?.trim() || '';
+      
+      // Clean date range (e.g., "May 27-28, 2026" -> "May 27, 2026")
+      const cleanedDateStr = dateText.replace(/-(\d+)/, '');
+      const parsedDate = new Date(cleanedDateStr);
+
+      if (!isNaN(parsedDate.getTime())) {
+        return parsedDate.getTime();
+      }
+
+      // If only a year string like "2026" is present
+      const yearOnly = parseInt(dateText, 10);
+      return !isNaN(yearOnly) ? new Date(yearOnly, 0, 1).getTime() : 0;
+    };
+
+    const timeA = getTime(a);
+    const timeB = getTime(b);
+
+    // Sort descending by exact date
+    return timeB - timeA;
   });
 
+  // Re-append DOM nodes in sorted order
   pubCards.forEach(card => pubSection.appendChild(card));
 }
 
