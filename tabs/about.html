@@ -21,18 +21,50 @@
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-gears"></i> Core Expertise</h2>
-  <div class="skills-grid">
-    <span class="badge">Transportation Planning</span>
-    <span class="badge">Public Transportation</span>
-    <span class="badge">Micro-mobility</span>
-    <span class="badge">Decision Analysis</span>
-    <span class="badge">Survey Methodology Design</span>
-    <span class="badge">Data-driven based Transport Analytics</span>
-    <span class="badge">Gender Auditing</span>
+  <!-- Flex Container: Core Expertise (Left) + Scholar Metrics (Right) -->
+  <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; align-items: stretch;">
+
+    <!-- Core Expertise Block (Left Side) -->
+    <div class="card" style="flex: 2; min-width: 280px; margin-bottom: 0;">
+      <h2 class="section-title" style="margin-top: 0;">
+        <i class="fa-solid fa-brain"></i> Core Expertise
+      </h2>
+      <div class="skills-grid">
+        <span class="badge">Transportation Planning</span>
+        <span class="badge">Public Transportation</span>
+        <span class="badge">Micro-mobility</span>
+        <span class="badge">Decision Analysis</span>
+        <span class="badge">Survey Methodology Design</span>
+        <span class="badge">Data-driven based Transport Analytics</span>
+        <span class="badge">Gender Auditing</span>
+      </div>
+    </div>
+
+    <!-- Scholar Metrics Box (Right Side) -->
+    <div class="card" style="flex: 1; min-width: 260px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: space-between;">
+      <h2 class="section-title" style="margin-top: 0; font-size: 1.1rem;">
+        <i class="fa-solid fa-chart-line"></i> Scholar Metrics
+      </h2>
+      
+      <div style="display: flex; justify-content: space-around; align-items: center; gap: 0.5rem; height: 100%; padding: 1rem 0;">
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-color);" id="metric-citations">--</div>
+          <div style="font-size: 0.75rem; font-weight: 600; opacity: 0.8;">Citations</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-color);" id="metric-hindex">--</div>
+          <div style="font-size: 0.75rem; font-weight: 600; opacity: 0.8;">h-index</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-color);" id="metric-i10index">--</div>
+          <div style="font-size: 0.75rem; font-weight: 600; opacity: 0.8;">i10-index</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <h2 class="section-title" style="margin-top: 4rem;"><i class="fa-solid fa-graduation-cap"></i> Professional Experience</h2>
+  <h2 class="section-title" style="margin-top: 4rem;"><i class="fa-solid fa-briefcase"></i> Professional Experience</h2>
   
   <div class="card">
     <div class="card-title">
@@ -103,22 +135,3 @@
     <div class="card-meta">Department of Civil Engineering</div>
   </div>
 </section>
-
-<h2 class="section-title" style="margin-top: 2rem;">
-  <i class="fa-solid fa-chart-line"></i> Scholar Metrics
-</h2>
-
-<div class="skills-grid" id="scholar-metrics-container">
-  <div class="card" style="flex: 1; min-width: 150px; text-align: center; margin-bottom: 0;">
-    <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-color);" id="metric-citations">--</div>
-    <div class="desc" style="font-size: 0.8rem; font-weight: 600;">Citations</div>
-  </div>
-  <div class="card" style="flex: 1; min-width: 150px; text-align: center; margin-bottom: 0;">
-    <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-color);" id="metric-hindex">--</div>
-    <div class="desc" style="font-size: 0.8rem; font-weight: 600;">h-index</div>
-  </div>
-  <div class="card" style="flex: 1; min-width: 150px; text-align: center; margin-bottom: 0;">
-    <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-color);" id="metric-i10index">--</div>
-    <div class="desc" style="font-size: 0.8rem; font-weight: 600;">i10-index</div>
-  </div>
-</div>

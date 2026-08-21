@@ -5,6 +5,31 @@ let cachedPublicationsHTML = null;
 let cachedProjectsHTML = null;
 
 /* ==========================================================================
+   SCHOLAR METRICS FETCH
+   ========================================================================== */
+function loadScholarMetrics() {
+  // Append timestamp to prevent browser & CDN caching
+  fetch(`./metrics.json?v=${new Date().getTime()}`)
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      console.log('Scholar Metrics Data:', data);
+      
+      const citationsEl = document.getElementById('metric-citations');
+      const hindexEl = document.getElementById('metric-hindex');
+      const i10indexEl = document.getElementById('metric-i10index');
+
+      // Handles key names from both Google Scholar/SerpApi and OpenAlex schemas
+      if (citationsEl) citationsEl.innerText = data.citations ?? data.cited_by_count ?? '--';
+      if (hindexEl) hindexEl.innerText = data.h_index ?? '--';
+      if (i10indexEl) i10indexEl.innerText = data.i10_index ?? '--';
+    })
+    .catch(err => console.error('Scholar metrics fetch error:', err));
+}
+
+/* ==========================================================================
    CORE TAB ROUTING & LOADING (HASH-BASED)
    ========================================================================== */
 function loadTab(tabName, evt) {
@@ -38,7 +63,10 @@ function loadTab(tabName, evt) {
       contentArea.innerHTML = html;
 
       // Tab Specific Initializations
-      if (tabName === 'publications') {
+      if (tabName === 'about') {
+        // Microtask delay ensures elements exist in DOM before selection
+        setTimeout(loadScholarMetrics, 50);
+      } else if (tabName === 'publications') {
         cachedPublicationsHTML = html;
         updatePublicationCounts();
         sortPublicationsByYear();
@@ -102,10 +130,7 @@ function sortPublicationsByYear() {
         return new Date(dataDate).getTime();
       }
 
-      // Fallback: parse date string like "Sep 16-18, 2026" or plain year "2026"
       const dateText = card.querySelector('.date-inline')?.textContent?.trim() || '';
-      
-      // Clean date range (e.g., "May 27-28, 2026" -> "May 27, 2026")
       const cleanedDateStr = dateText.replace(/-(\d+)/, '');
       const parsedDate = new Date(cleanedDateStr);
 
@@ -113,7 +138,6 @@ function sortPublicationsByYear() {
         return parsedDate.getTime();
       }
 
-      // If only a year string like "2026" is present
       const yearOnly = parseInt(dateText, 10);
       return !isNaN(yearOnly) ? new Date(yearOnly, 0, 1).getTime() : 0;
     };
@@ -121,11 +145,9 @@ function sortPublicationsByYear() {
     const timeA = getTime(a);
     const timeB = getTime(b);
 
-    // Sort descending by exact date
     return timeB - timeA;
   });
 
-  // Re-append DOM nodes in sorted order
   pubCards.forEach(card => pubSection.appendChild(card));
 }
 
@@ -342,7 +364,6 @@ function renderThemeCards(themeKey) {
     confsContainer.style.display = 'none';
   }
 
-  // Toggle Parent Publication Group
   pubsGroup.style.display = (matchedJournals.length + matchedConfs.length > 0) ? 'block' : 'none';
 }
 
@@ -412,38 +433,3 @@ function addComment(postId) {
   nameInput.value = '';
   msgInput.value = '';
 }
-
-// Add helper function to fetch and populate JSON metrics
-function loadScholarMetrics() {
-  fetch('metrics.json')
-    .then(response => {
-      if (!response.ok) throw new Error("metrics.json not found");
-      return response.json();
-    })
-    .then(data => {
-      const citationsEl = document.getElementById('metric-citations');
-      const hindexEl = document.getElementById('metric-hindex');
-      const i10indexEl = document.getElementById('metric-i10index');
-
-      if (citationsEl) citationsEl.innerText = data.citations;
-      if (hindexEl) hindexEl.innerText = data.h_index;
-      if (i10indexEl) i10indexEl.innerText = data.i10_index;
-    })
-    .catch(err => console.log('Scholar metrics fetch error or pending first build:', err));
-}
-
-// Inside your existing loadTab(tabName, evt) function in script.js:
-fetch(`tabs/${tabName}.html`)
-  .then(response => response.text())
-  .then(html => {
-    contentArea.innerHTML = html;
-
-    if (tabName === 'about') {
-      loadScholarMetrics(); // Call loader when About tab mounts
-    } else if (tabName === 'publications') {
-      cachedPublicationsHTML = html;
-      updatePublicationCounts();
-      sortPublicationsByYear();
-    } 
-    // ... rest of your loadTab logic
-  });
