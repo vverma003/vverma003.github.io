@@ -72,6 +72,7 @@ function loadTab(tabName, evt) {
         sortPublicationsByYear();
       } else if (tabName === 'projects') {
         cachedProjectsHTML = html;
+        sortProjectsByYear();
       } else if (tabName === 'research') {
         initResearchThemeView('public-transport');
       }
@@ -107,6 +108,40 @@ function filterItems(sectionId, filterGroup, evt) {
     const itemCat = item.getAttribute('data-category');
     item.style.display = (filterGroup === 'all' || itemCat === filterGroup) ? 'block' : 'none';
   });
+}
+
+function sortProjectsByYear() {
+  const projectSection = document.getElementById('projects');
+  if (!projectSection) return;
+
+  const projectCards = Array.from(projectSection.querySelectorAll('.project-item'));
+
+  projectCards.sort((a, b) => {
+    const getTime = (card) => {
+      const dataDate = card.getAttribute('data-date');
+      if (dataDate) {
+        return new Date(dataDate).getTime();
+      }
+
+      const dateText = card.querySelector('.date-inline')?.textContent?.trim() || '';
+      const startDateStr = dateText.split('-')[0].trim();
+      const parsedDate = new Date(startDateStr);
+
+      if (!isNaN(parsedDate.getTime())) {
+        return parsedDate.getTime();
+      }
+
+      const yearMatch = dateText.match(/\b(19|20)\d{2}\b/);
+      return yearMatch ? new Date(parseInt(yearMatch[0], 10), 0, 1).getTime() : 0;
+    };
+
+    const timeA = getTime(a);
+    const timeB = getTime(b);
+
+    return timeB - timeA;
+  });
+
+  projectCards.forEach(card => projectSection.appendChild(card));
 }
 
 function sortPublicationsByYear() {
