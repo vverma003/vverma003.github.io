@@ -1,35 +1,30 @@
 import json
-from scholarly import scholarly, ProxyGenerator
+import urllib.request
 
-# 1. Setup Free Proxy Generator
-pg = ProxyGenerator()
-# Fetch free working proxies
-success = pg.FreeProxies()
+# OpenAlex uses ORCID or author names, or you can query directly by your ORCID ID
+ORCID_ID = "0000-0002-4552-5025"  # e.g., "0000-0002-1825-0097"
+url = f"https://api.openalex.org/authors/https://orcid.org/{ORCID_ID}"
 
-if success:
-    scholarly.use_proxy(pg)
-    print("Proxy successfully configured.")
-else:
-    print("Failed to set up proxies, falling back to direct connection.")
-
-# 1. Fetch author details using your Google Scholar ID
-SCHOLAR_ID = "uMwPCy0AAAAJ&hl"  # Replace with your 12-character ID
+req = urllib.request.Request(
+    url, 
+    headers={'User-Agent': 'mailto:yourname@domain.com'} # OpenAlex requests an email for polite API usage
+)
 
 try:
-    author = scholarly.search_author_id(SCHOLAR_ID)
-    filled_author = scholarly.fill(author, sections=["indices"])
+    with urllib.request.urlopen(req) as response:
+        data = json.loads(response.read().decode())
+        
+        metrics_data = {
+            "citations": data.get("cited_by_count", 0),
+            "h_index": data.get("summary_stats", {}).get("h_index", 0),
+            "i10_index": data.get("summary_stats", {}).get("i10_index", 0)
+        }
 
-    metrics_data = {
-        "citations": filled_author.get("citedby", 0),
-        "h_index": filled_author.get("hindex", 0),
-        "i10_index": filled_author.get("i10index", 0),
-    }
+        with open("metrics.json", "w") as f:
+            json.dump(metrics_data, f, indent=2)
 
-    with open("metrics.json", "w") as f:
-        json.dump(metrics_data, f, indent=2)
-
-    print("Successfully generated metrics.json:", metrics_data)
+        print("Successfully generated metrics via OpenAlex:", metrics_data)
 
 except Exception as e:
-    print(f"Error fetching Scholar metrics: {e}")
+    print(f"Error fetching from OpenAlex: {e}")
     raise e
