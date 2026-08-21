@@ -2,7 +2,7 @@ import json
 import sys
 from scholarly import scholarly, ProxyGenerator
 
-# Initialize free proxies to bypass Google IP blocks
+# Initialize free proxies to prevent Google from blocking GitHub Actions IPs
 pg = ProxyGenerator()
 success = pg.FreeProxies()
 if success:
@@ -11,7 +11,7 @@ if success:
 SCHOLAR_ID = "uMwPCy0AAAAJ&hl" # Replace with your Scholar ID
 
 try:
-    print(f"Searching for Scholar ID: {SCHOLAR_ID}")
+    print(f"Fetching metrics for Scholar ID: {SCHOLAR_ID}")
     author = scholarly.search_author_id(SCHOLAR_ID)
     filled_author = scholarly.fill(author, sections=["indices"])
 
@@ -21,15 +21,12 @@ try:
         "i10_index": filled_author.get("i10index", 0),
     }
 
-    # Verify we actually got valid numbers
-    if metrics_data["citations"] == 0 and metrics_data["h_index"] == 0:
-        print("Warning: Fetched 0 for all metrics. Google might be rate-limiting.")
+    print(f"Successfully retrieved data: {metrics_data}")
 
     with open("metrics.json", "w") as f:
         json.dump(metrics_data, f, indent=2)
 
-    print("Updated metrics.json successfully:", metrics_data)
-
 except Exception as e:
-    print(f"Error fetching Google Scholar data: {e}")
-    sys.exit(1) # Fail job so GitHub Actions alerts you
+    print(f"Error executing scholarly script: {e}")
+    # Force the workflow step to fail so GitHub sends you an email alert on failure
+    sys.exit(1)
