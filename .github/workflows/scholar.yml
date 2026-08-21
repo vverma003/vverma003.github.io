@@ -35,3 +35,6 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add metrics.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update scholar metrics" && git push)
+
+      - name: Install dependencies
+        run: pip install requests

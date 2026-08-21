@@ -1,30 +1,30 @@
 import json
-import urllib.request
+import requests
 
-# OpenAlex uses ORCID or author names, or you can query directly by your ORCID ID
-ORCID_ID = "0000-0002-4552-5025"  # e.g., "0000-0002-1825-0097"
+ORCID_ID = "0000-0002-4552-5025"
 url = f"https://api.openalex.org/authors/https://orcid.org/{ORCID_ID}"
 
-req = urllib.request.Request(
-    url, 
-    headers={'User-Agent': 'mailto:yourname@domain.com'} # OpenAlex requests an email for polite API usage
-)
+headers = {
+    'User-Agent': 'mailto:vishwajeet.verma@tcd.ie'  # OpenAlex polite pool requirement
+}
 
 try:
-    with urllib.request.urlopen(req) as response:
-        data = json.loads(response.read().decode())
-        
-        metrics_data = {
-            "citations": data.get("cited_by_count", 0),
-            "h_index": data.get("summary_stats", {}).get("h_index", 0),
-            "i10_index": data.get("summary_stats", {}).get("i10_index", 0)
-        }
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()
+    data = response.json()
 
-        with open("metrics.json", "w") as f:
-            json.dump(metrics_data, f, indent=2)
+    # Extract metrics from OpenAlex payload
+    metrics_data = {
+        "citations": data.get("cited_by_count", 0),
+        "h_index": data.get("summary_stats", {}).get("h_index", 0),
+        "i10_index": data.get("summary_stats", {}).get("i10_index", 0)
+    }
 
-        print("Successfully generated metrics via OpenAlex:", metrics_data)
+    with open("metrics.json", "w") as f:
+        json.dump(metrics_data, f, indent=2)
+
+    print("Successfully generated metrics.json via OpenAlex:", metrics_data)
 
 except Exception as e:
-    print(f"Error fetching from OpenAlex: {e}")
+    print(f"Error fetching metrics from OpenAlex: {e}")
     raise e
