@@ -36,26 +36,32 @@ body {
   top: 0;
   background-color: #0b1120;
   border-right: 1px solid var(--border-color);
-  padding: 2.5rem 1.8rem;
+  padding: 2.5rem 1.8rem 1.5rem 1.8rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   z-index: 100;
   overflow-y: auto;
 }
 
 .profile-header {
   text-align: center;
+  min-height: calc(55vh - 0.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .avatar-wrapper {
   position: relative;
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 1.5rem;
+  width: clamp(130px, 14vw, 170px);
+  height: clamp(130px, 14vw, 170px);
+  margin: 0 auto 1.2rem;
   border-radius: 50%;
   padding: 4px;
   background: linear-gradient(135deg, var(--accent-color), #818cf8);
+  flex-shrink: 0;
 }
 
 .avatar-img {
@@ -98,7 +104,7 @@ body {
 }
 
 .cv-container {
-  margin-top: 2rem;
+  margin-top: auto;
   width: 100%;
 }
 
@@ -127,7 +133,7 @@ body {
 .email-container {
   width: 100%;
   margin-top: 1.5rem;
-  margin-bottom: 0.15rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
@@ -152,8 +158,8 @@ body {
   justify-content: space-between;
   gap: 0.3rem;
   flex-wrap: nowrap;
-  margin-top: auto;
-  padding-top: 0.4rem;
+  margin-top: 0;
+  padding-top: 0.8rem;
   border-top: 1px solid var(--border-color);
   width: 100%;
 }
@@ -244,8 +250,10 @@ body {
 
 /* Content Container */
 .content-container {
-  padding: 2.5rem;
-  max-width: 900px;
+  padding: 2.5rem 3rem;
+  width: 100%;
+  max-width: 1400px; /* Increased from 900px to fill wider displays */
+  margin: 0 auto;    /* Centers the content block dynamically */
 }
 
 .tab-panel {
