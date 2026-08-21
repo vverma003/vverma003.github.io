@@ -1,7 +1,7 @@
 import json
 from scholarly import scholarly
 
-SCHOLAR_ID = "uMwPCy0AAAAJ&hl" # Replace with your Scholar ID
+SCHOLAR_ID = "uMwPCy0AAAAJ&hl=en" # Replace with your Scholar ID
 
 try:
     author = scholarly.search_author_id(SCHOLAR_ID)
