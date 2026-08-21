@@ -1,0 +1,25 @@
+name: Update Google Scholar Metrics
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Weekly execution to avoid Google anti-bot limits
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install scholarly
+      - name: Run script
+        run: python update_metrics.py
+      - name: Commit & Push updated metrics
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add metrics.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: update scholar metrics" && git push)

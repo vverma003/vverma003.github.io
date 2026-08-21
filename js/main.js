@@ -412,3 +412,38 @@ function addComment(postId) {
   nameInput.value = '';
   msgInput.value = '';
 }
+
+// Add helper function to fetch and populate JSON metrics
+function loadScholarMetrics() {
+  fetch('metrics.json')
+    .then(response => {
+      if (!response.ok) throw new Error("metrics.json not found");
+      return response.json();
+    })
+    .then(data => {
+      const citationsEl = document.getElementById('metric-citations');
+      const hindexEl = document.getElementById('metric-hindex');
+      const i10indexEl = document.getElementById('metric-i10index');
+
+      if (citationsEl) citationsEl.innerText = data.citations;
+      if (hindexEl) hindexEl.innerText = data.h_index;
+      if (i10indexEl) i10indexEl.innerText = data.i10_index;
+    })
+    .catch(err => console.log('Scholar metrics fetch error or pending first build:', err));
+}
+
+// Inside your existing loadTab(tabName, evt) function in script.js:
+fetch(`tabs/${tabName}.html`)
+  .then(response => response.text())
+  .then(html => {
+    contentArea.innerHTML = html;
+
+    if (tabName === 'about') {
+      loadScholarMetrics(); // Call loader when About tab mounts
+    } else if (tabName === 'publications') {
+      cachedPublicationsHTML = html;
+      updatePublicationCounts();
+      sortPublicationsByYear();
+    } 
+    // ... rest of your loadTab logic
+  });
