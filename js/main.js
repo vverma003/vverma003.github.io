@@ -468,3 +468,20 @@ function addComment(postId) {
   nameInput.value = '';
   msgInput.value = '';
 }
+
+function toggleMobileMenu() {
+  const navTabs = document.getElementById('nav-tabs');
+  if (navTabs) {
+    navTabs.classList.toggle('is-active');
+  }
+}
+
+// Modify your existing loadTab function to automatically close mobile menu on tab click
+const originalLoadTab = loadTab;
+loadTab = function(tabName, evt) {
+  const navTabs = document.getElementById('nav-tabs');
+  if (navTabs && navTabs.classList.contains('is-active')) {
+    navTabs.classList.remove('is-active');
+  }
+  originalLoadTab(tabName, evt);
+};

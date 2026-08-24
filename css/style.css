@@ -856,3 +856,61 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
 }
+
+/* Default state (Desktop): Hide mobile button */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* Mobile & Tablet Styles */
+@media (max-width: 900px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between; /* Positions hamburger button top-left or top-right */
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .menu-toggle {
+    display: block; /* Show 3-line icon on mobile */
+  }
+
+  .nav-tabs {
+    display: none; /* Hide tab bar by default on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #0b1120;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    width: 100%;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Revealed state when hamburger icon is clicked */
+  .nav-tabs.is-active {
+    display: flex;
+  }
+
+  .nav-tabs li {
+    width: 100%;
+  }
+
+  .tab-btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .tab-btn.active::after {
+    display: none; /* Hide desktop underline indicator on mobile */
+  }
+}
