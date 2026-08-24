@@ -865,7 +865,7 @@ footer {
     background-color: #0b1120;
     z-index: 999;
     padding: 0 1.25rem;
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .menu-toggle {
