@@ -186,7 +186,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* Main Wrapper & Nav */
+/* Main Wrapper & Navigation */
 .main-wrapper {
   margin-left: var(--sidebar-width);
   flex: 1;
@@ -198,11 +198,31 @@ body {
 .navbar {
   position: sticky;
   top: 0;
-  background-color: rgba(15, 23, 42, 0.9);
+  background-color: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   z-index: 90;
   padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--accent-color);
+  font-size: 1.3rem;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menu-toggle:hover {
+  border-color: var(--accent-color);
+  background: var(--badge-bg);
 }
 
 .nav-tabs {
@@ -252,8 +272,8 @@ body {
 .content-container {
   padding: 2.5rem 3rem;
   width: 100%;
-  max-width: 1400px; /* Increased from 900px to fill wider displays */
-  margin: 0 auto;    /* Centers the content block dynamically */
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .tab-panel {
@@ -444,7 +464,6 @@ h2.section-title i {
   color: var(--text-main);
 }
 
-/* Updated: Added min-width to ensure wrapping works correctly across all layouts */
 .pub-title-text {
   flex: 1;
   min-width: 0;
@@ -463,7 +482,6 @@ h2.section-title i {
   text-decoration: underline;
 }
 
-/* Updated: Added white-space: nowrap and flex-shrink: 0 */
 .date-inline {
   font-size: 0.78rem;
   font-weight: 500;
@@ -473,11 +491,10 @@ h2.section-title i {
   padding: 0.15rem 0.55rem;
   border-radius: 6px;
   line-height: 1.2;
-  white-space: nowrap; /* Forces date string onto a single line */
-  flex-shrink: 0;      /* Prevents the date box from compressing */
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* Base badge styling */
 .status-badge {
   display: inline-block;
   font-size: 0.72rem;
@@ -490,21 +507,18 @@ h2.section-title i {
   vertical-align: middle;
 }
 
-/* Variant 1: Submitted / Under Review (Amber/Gold glow) */
 .status-badge.submitted {
   color: #f59e0b;
   background: rgba(245, 158, 11, 0.12);
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-/* Variant 2: In Preparation (Purple/Indigo tint) */
 .status-badge.prep {
   color: #a855f7;
   background: rgba(168, 85, 247, 0.12);
   border: 1px solid rgba(168, 85, 247, 0.3);
 }
 
-/* Subtitle layout alignment */
 .card-subtitle {
   display: flex;
   align-items: center;
@@ -555,7 +569,6 @@ h2.section-title i {
   font-weight: normal;
 }
 
-/* Optional styling when button is active */
 .filter-btn.active .count-badge,
 .sub-filter-btn.active .count-badge {
   font-weight: bold;
@@ -784,47 +797,6 @@ h2.section-title i {
   color: var(--text-muted);
 }
 
-footer {
-  margin-top: auto;
-  padding: 1.5rem 2.5rem;
-  border-top: 1px solid var(--border-color);
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  text-align: center;
-}
-
-@media (max-width: 900px) {
-  body {
-    flex-direction: column;
-  }
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .main-wrapper {
-    margin-left: 0;
-  }
-  .content-container {
-    padding: 1.5rem;
-  }
-  .course-card {
-    flex-direction: column;
-  }
-  .certificate-wrapper {
-    width: 100%;
-    align-items: flex-start;
-    margin-top: 0.8rem;
-  }
-  .certificate-img {
-    width: 100%;
-    height: auto;
-    max-height: 200px;
-  }
-}
-
 .theme-group-title {
   font-size: 1.25rem;
   color: var(--accent-color);
@@ -849,7 +821,6 @@ footer {
   gap: 0.75rem;
 }
 
-/* Container for the theme content results */
 #theme-results {
   margin-top: 1.75rem;
   padding-top: 1.5rem;
@@ -857,47 +828,68 @@ footer {
   position: relative;
 }
 
-/* Default state (Desktop): Hide mobile button */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--accent-color);
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
+footer {
+  margin-top: auto;
+  padding: 1.5rem 2.5rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: center;
 }
 
-/* Mobile & Tablet Styles */
+/* Mobile Responsive Adjustments */
 @media (max-width: 900px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .main-wrapper {
+    margin-left: 0;
+    padding-top: 60px;
+  }
+
   .navbar {
-    display: flex;
-    justify-content: space-between; /* Positions hamburger button top-left or top-right */
-    align-items: center;
-    padding: 0.75rem 1.25rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #0b1120;
+    z-index: 999;
+    padding: 0 1.25rem;
+    justify-content: flex-end;
   }
 
   .menu-toggle {
-    display: block; /* Show 3-line icon on mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-tabs {
-    display: none; /* Hide tab bar by default on mobile */
+    display: none;
     flex-direction: column;
     position: absolute;
-    top: 100%;
+    top: 60px;
     left: 0;
-    right: 0;
+    width: 100%;
     background-color: #0b1120;
     border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
-    width: 100%;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    z-index: 998;
   }
 
-  /* Revealed state when hamburger icon is clicked */
   .nav-tabs.is-active {
-    display: flex;
+    display: flex !important;
   }
 
   .nav-tabs li {
@@ -907,10 +899,31 @@ footer {
   .tab-btn {
     width: 100%;
     text-align: left;
-    padding: 0.8rem 1.5rem;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .tab-btn.active::after {
-    display: none; /* Hide desktop underline indicator on mobile */
+    display: none;
+  }
+
+  .content-container {
+    padding: 1.5rem;
+  }
+
+  .course-card {
+    flex-direction: column;
+  }
+
+  .certificate-wrapper {
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 0.8rem;
+  }
+
+  .certificate-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
   }
 }

@@ -5,23 +5,41 @@ let cachedPublicationsHTML = null;
 let cachedProjectsHTML = null;
 
 /* ==========================================================================
+   MOBILE MENU TOGGLE HANDLER
+   ========================================================================== */
+function setupMobileMenu() {
+  const menuBtn = document.getElementById('menu-toggle');
+  const navTabs = document.getElementById('nav-tabs');
+
+  if (menuBtn && navTabs) {
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      navTabs.classList.toggle('is-active');
+    });
+
+    // Close menu when clicking anywhere outside
+    document.addEventListener('click', function (e) {
+      if (!navTabs.contains(e.target) && !menuBtn.contains(e.target)) {
+        navTabs.classList.remove('is-active');
+      }
+    });
+  }
+}
+
+/* ==========================================================================
    SCHOLAR METRICS FETCH
    ========================================================================== */
 function loadScholarMetrics() {
-  // Append timestamp to prevent browser & CDN caching
   fetch(`./metrics.json?v=${new Date().getTime()}`)
     .then(response => {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       return response.json();
     })
     .then(data => {
-      console.log('Scholar Metrics Data:', data);
-      
       const citationsEl = document.getElementById('metric-citations');
       const hindexEl = document.getElementById('metric-hindex');
       const i10indexEl = document.getElementById('metric-i10index');
 
-      // Handles key names from both Google Scholar/SerpApi and OpenAlex schemas
       if (citationsEl) citationsEl.innerText = data.citations ?? data.cited_by_count ?? '--';
       if (hindexEl) hindexEl.innerText = data.h_index ?? '--';
       if (i10indexEl) i10indexEl.innerText = data.i10_index ?? '--';
@@ -34,9 +52,16 @@ function loadScholarMetrics() {
    ========================================================================== */
 function loadTab(tabName, evt) {
   const contentArea = document.getElementById('content-area');
+  const navTabs = document.getElementById('nav-tabs');
+
+  // Auto-close mobile menu on selection
+  if (navTabs) {
+    navTabs.classList.remove('is-active');
+  }
+
   if (!contentArea) return;
 
-  // 1. Update Navigation Bar Active State
+  // 1. Update Navigation Active State
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   if (evt && evt.currentTarget) {
     evt.currentTarget.classList.add('active');
@@ -48,7 +73,7 @@ function loadTab(tabName, evt) {
     if (targetBtn) targetBtn.classList.add('active');
   }
 
-  // 2. Hash-based Routing (Prevents 404s on static hosting like GitHub Pages)
+  // 2. Hash-based Routing
   if (window.location.hash !== `#${tabName}`) {
     history.pushState({ tab: tabName }, '', `#${tabName}`);
   }
@@ -62,9 +87,7 @@ function loadTab(tabName, evt) {
     .then(html => {
       contentArea.innerHTML = html;
 
-      // Tab Specific Initializations
       if (tabName === 'about') {
-        // Microtask delay ensures elements exist in DOM before selection
         setTimeout(loadScholarMetrics, 50);
       } else if (tabName === 'publications') {
         cachedPublicationsHTML = html;
@@ -90,8 +113,12 @@ function handleHashNavigation() {
   loadTab(targetTab);
 }
 
-// Event Listeners for Page Load and Browser History (Back/Forward)
-document.addEventListener('DOMContentLoaded', handleHashNavigation);
+// Page initialization
+document.addEventListener('DOMContentLoaded', () => {
+  setupMobileMenu();
+  handleHashNavigation();
+});
+
 window.addEventListener('popstate', handleHashNavigation);
 
 /* ==========================================================================
@@ -119,26 +146,19 @@ function sortProjectsByYear() {
   projectCards.sort((a, b) => {
     const getTime = (card) => {
       const dataDate = card.getAttribute('data-date');
-      if (dataDate) {
-        return new Date(dataDate).getTime();
-      }
+      if (dataDate) return new Date(dataDate).getTime();
 
       const dateText = card.querySelector('.date-inline')?.textContent?.trim() || '';
       const startDateStr = dateText.split('-')[0].trim();
       const parsedDate = new Date(startDateStr);
 
-      if (!isNaN(parsedDate.getTime())) {
-        return parsedDate.getTime();
-      }
+      if (!isNaN(parsedDate.getTime())) return parsedDate.getTime();
 
       const yearMatch = dateText.match(/\b(19|20)\d{2}\b/);
       return yearMatch ? new Date(parseInt(yearMatch[0], 10), 0, 1).getTime() : 0;
     };
 
-    const timeA = getTime(a);
-    const timeB = getTime(b);
-
-    return timeB - timeA;
+    return getTime(b) - getTime(a);
   });
 
   projectCards.forEach(card => projectSection.appendChild(card));
@@ -154,33 +174,24 @@ function sortPublicationsByYear() {
     const scopeA = a.getAttribute('data-scope');
     const scopeB = b.getAttribute('data-scope');
 
-    // 1. Force working papers to the top
     if (scopeA === 'working' && scopeB !== 'working') return -1;
     if (scopeA !== 'working' && scopeB === 'working') return 1;
 
-    // 2. Helper function to extract or parse timestamp
     const getTime = (card) => {
       const dataDate = card.getAttribute('data-date');
-      if (dataDate) {
-        return new Date(dataDate).getTime();
-      }
+      if (dataDate) return new Date(dataDate).getTime();
 
       const dateText = card.querySelector('.date-inline')?.textContent?.trim() || '';
       const cleanedDateStr = dateText.replace(/-(\d+)/, '');
       const parsedDate = new Date(cleanedDateStr);
 
-      if (!isNaN(parsedDate.getTime())) {
-        return parsedDate.getTime();
-      }
+      if (!isNaN(parsedDate.getTime())) return parsedDate.getTime();
 
       const yearOnly = parseInt(dateText, 10);
       return !isNaN(yearOnly) ? new Date(yearOnly, 0, 1).getTime() : 0;
     };
 
-    const timeA = getTime(a);
-    const timeB = getTime(b);
-
-    return timeB - timeA;
+    return getTime(b) - getTime(a);
   });
 
   pubCards.forEach(card => pubSection.appendChild(card));
@@ -312,7 +323,7 @@ function filterBlogs(category, evt) {
 }
 
 /* ==========================================================================
-   RESEARCH THEME ENGINE (ASYNC CACHED CROSS-REFERENCING)
+   RESEARCH THEME ENGINE
    ========================================================================== */
 async function initResearchThemeView(themeKey) {
   if (!cachedPublicationsHTML) {
@@ -360,7 +371,6 @@ function renderThemeCards(themeKey) {
   journalsList.innerHTML = '';
   confsList.innerHTML = '';
 
-  // Render Matching Projects
   const matchedProjects = projDoc.querySelectorAll(`.project-item[data-theme~="${themeKey}"]`);
   if (matchedProjects.length > 0) {
     projectsGroup.style.display = 'block';
@@ -373,7 +383,6 @@ function renderThemeCards(themeKey) {
     projectsGroup.style.display = 'none';
   }
 
-  // Render Matching Journals
   const matchedJournals = pubDoc.querySelectorAll(`.journal-item[data-theme~="${themeKey}"]`);
   if (matchedJournals.length > 0) {
     journalsContainer.style.display = 'block';
@@ -386,7 +395,6 @@ function renderThemeCards(themeKey) {
     journalsContainer.style.display = 'none';
   }
 
-  // Render Matching Conferences
   const matchedConfs = pubDoc.querySelectorAll(`.conf-item[data-theme~="${themeKey}"]`);
   if (matchedConfs.length > 0) {
     confsContainer.style.display = 'block';
@@ -468,20 +476,3 @@ function addComment(postId) {
   nameInput.value = '';
   msgInput.value = '';
 }
-
-function toggleMobileMenu() {
-  const navTabs = document.getElementById('nav-tabs');
-  if (navTabs) {
-    navTabs.classList.toggle('is-active');
-  }
-}
-
-// Modify your existing loadTab function to automatically close mobile menu on tab click
-const originalLoadTab = loadTab;
-loadTab = function(tabName, evt) {
-  const navTabs = document.getElementById('nav-tabs');
-  if (navTabs && navTabs.classList.contains('is-active')) {
-    navTabs.classList.remove('is-active');
-  }
-  originalLoadTab(tabName, evt);
-};

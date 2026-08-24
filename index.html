@@ -4,10 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dr. Vishwajeet Verma | Portfolio</title>
+  
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
-  </head>
+</head>
 <body>
 
   <!-- Static Sidebar -->
@@ -56,28 +60,28 @@
 
   <!-- Main Content Wrapper -->
   <div class="main-wrapper">
-    <!-- Hamburger Toggle Icon -->
-    <button class="menu-toggle" id="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
-      <i class="fa-solid fa-bars"></i>
-    </button>
     
-    <!-- Top Navigation Bar -->
+    <!-- Top Bar Navigation with Hamburger Icon -->
     <nav class="navbar">
-      <ul class="nav-tabs">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <ul class="nav-tabs" id="nav-tabs">
         <li><button class="tab-btn active" onclick="loadTab('about', event)">About</button></li>
-        <li><button class="tab-btn" onclick="loadTab('research', event)">Research</button></li>
-        <li><button class="tab-btn" onclick="loadTab('projects', event)">Projects</button></li>
         <li><button class="tab-btn" onclick="loadTab('publications', event)">Publications</button></li>
-        <li><button class="tab-btn" onclick="loadTab('talks', event)">Talks & Teachings</button></li>
-        <li><button class="tab-btn" onclick="loadTab('news', event)">News</button></li>
+        <li><button class="tab-btn" onclick="loadTab('projects', event)">Projects</button></li>
+        <li><button class="tab-btn" onclick="loadTab('research', event)">Research</button></li>
+        <li><button class="tab-btn" onclick="loadTab('talks', event)">Talks</button></li>
         <li><button class="tab-btn" onclick="loadTab('blog', event)">Blog</button></li>
+        <li><button class="tab-btn" onclick="loadTab('news', event)">News</button></li>
       </ul>
     </nav>
 
     <!-- Content Area where tab pages load dynamically -->
-    <div class="content-container" id="content-area">
+    <main class="content-container" id="content-area">
       <!-- Active tab content injects here dynamically -->
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -85,6 +89,7 @@
     </footer>
   </div>
 
+  <!-- Scripts -->
   <script src="js/main.js"></script>
 </body>
 </html>
