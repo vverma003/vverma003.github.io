@@ -295,11 +295,13 @@ body {
 
 .sub-filter-controls {
   display: flex;
-  gap: 0.4rem;
-  margin-top: -0.8rem;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
   margin-bottom: 1.5rem;
-  padding-left: 0.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent-color); /* Visual connector showing parent-child link */
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filter-btn {
@@ -327,27 +329,29 @@ body {
 }
 
 .sub-filter-btn {
-  background: transparent;
-  border: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px dashed var(--border-color); /* Dashed border signals secondary filter level */
   color: var(--text-muted);
-  padding: 0.25rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.78rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 6px; /* Slightly squared corners to contrast with round parent badges */
+  font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 .sub-filter-btn:hover {
-  color: var(--text-main);
-  border-color: var(--accent-color);
+  color: #a855f7; /* Soft purple hover accent */
+  border-color: #a855f7;
+  background: rgba(168, 85, 247, 0.08);
 }
 
 .sub-filter-btn.active {
-  background: rgba(56, 189, 248, 0.15);
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+  background: #a855f7 !important; /* Contrasting solid active background */
+  color: #ffffff !important;
+  border: 1px solid #c084fc !important;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3); /* Glow effect to highlight active selection */
 }
 
 /* Modal Overlay */
@@ -569,10 +573,14 @@ h2.section-title i {
   font-weight: normal;
 }
 
-.filter-btn.active .count-badge,
-.sub-filter-btn.active .count-badge {
+.filter-btn.active .count-badge {
   font-weight: bold;
   opacity: 1;
+}
+
+.sub-filter-btn.active .count-badge {
+  color: #f3e8ff;
+  font-weight: 700;
 }
 
 .course-card {
