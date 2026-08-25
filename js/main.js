@@ -36,13 +36,13 @@ function loadScholarMetrics() {
       return response.json();
     })
     .then(data => {
-      const citationsEl = document.getElementById('metric-citations');
-      const hindexEl = document.getElementById('metric-hindex');
-      const i10indexEl = document.getElementById('metric-i10index');
+      const citationsEl = document.getElementById('metrics-citations');
+      const hIndexEl = document.getElementById('metrics-hIndex');
+      const i10IndexEl = document.getElementById('metrics-i10Index');
 
       if (citationsEl) citationsEl.innerText = data.citations ?? data.cited_by_count ?? '--';
-      if (hindexEl) hindexEl.innerText = data.h_index ?? '--';
-      if (i10indexEl) i10indexEl.innerText = data.i10_index ?? '--';
+      if (hIndexEl) hIndexEl.innerText = data.hIndex ?? '--';
+      if (i10IndexEl) i10IndexEl.innerText = data.i10Index ?? '--';
     })
     .catch(err => console.error('Scholar metrics fetch error:', err));
 }
