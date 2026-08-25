@@ -25,6 +25,7 @@ def setup_proxy():
 
 
 def fetch_scholar_metrics(author_id: str):
+    """Fetch total citations, h-index, and i10-index for a Scholar author."""
     setup_proxy()
 
     print(f"Fetching metrics for author ID: {author_id}...")
@@ -32,11 +33,10 @@ def fetch_scholar_metrics(author_id: str):
     author = scholarly.fill(author, sections=['basics', 'indices'])
 
     metrics = {
-        "citations": data.get("cited_by_count", 0),
-        "h_index": data.get("summary_stats", {}).get("h_index", 0),
-        "i10_index": data.get("summary_stats", {}).get("i10_index", 0)
+        "citations": author.get("citedby", 0),
+        "hIndex": author.get("hindex", 0),
+        "i10Index": author.get("i10index", 0),
     }
-
     return metrics
 
 
