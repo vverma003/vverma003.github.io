@@ -1,53 +1,39 @@
+# scripts/update_scholar_metrics.py
+
 import json
-import sys
 from pathlib import Path
 from datetime import datetime, timezone
-from scholarly import scholarly, ProxyGenerator
+
+from scholarly import scholarly  # pip install scholarly
 
 # ---- CONFIGURATION ----
+# Google Scholar author ID
 AUTHOR_ID = "uMwPCy0AAAAJ"
 
+# Location to store the JSON inside the repo
 OUTPUT_PATH = Path("metrics.json")
 # ------------------------
 
 
-def setup_proxy():
-    """Setup free proxies to prevent Google Scholar IP blocks on GitHub Actions."""
-    try:
-        pg = ProxyGenerator()
-        # Free proxies helps bypass basic IP blocking
-        success = pg.FreeProxies()
-        if success:
-            scholarly.use_proxy(pg)
-            print("Successfully configured free proxies.")
-    except Exception as e:
-        print(f"Warning: Could not set up proxy: {e}")
-
-
 def fetch_scholar_metrics(author_id: str):
     """Fetch total citations, h-index, and i10-index for a Scholar author."""
-    setup_proxy()
-
-    print(f"Fetching metrics for author ID: {author_id}...")
     author = scholarly.search_author_id(author_id)
-    author = scholarly.fill(author, sections=['basics', 'indices'])
+    author = scholarly.fill(author)  # populate full data
+
+    cites = author.get("citedby", None)
+    indices = author.get("hindex", None)
+    i10 = author.get("i10index", None)
 
     metrics = {
-        "citations": author.get("citedby", 0),
-        "hIndex": author.get("hindex", 0),
-        "i10Index": author.get("i10index", 0),
+        "citations": cites,
+        "hIndex": indices,
+        "i10Index": i10,
     }
     return metrics
 
 
 def main():
-    try:
-        metrics = fetch_scholar_metrics(AUTHOR_ID)
-    except Exception as e:
-        print(f"Error fetching Scholar metrics: {e}", file=sys.stderr)
-        # Exit with non-zero code to fail the workflow explicitly if desired,
-        # or handle gracefully to prevent breaking website builds.
-        sys.exit(1)
+    metrics = fetch_scholar_metrics(AUTHOR_ID)
 
     # Add updatedAt field in ISO format (UTC)
     metrics["updatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -58,7 +44,7 @@ def main():
     with OUTPUT_PATH.open("w", encoding="utf-8") as f:
         json.dump(metrics, f, ensure_ascii=False, indent=2)
 
-    print(f"Successfully wrote metrics to {OUTPUT_PATH.resolve()}:")
+    print(f"Wrote metrics to {OUTPUT_PATH.resolve()}:")
     print(json.dumps(metrics, indent=2))
 
 
