@@ -8,7 +8,7 @@ from scholarly import scholarly  # pip install scholarly
 
 # ---- CONFIGURATION ----
 # Your Google Scholar author ID (from ?user=... in your profile URL)
-AUTHOR_ID = "uMwPCy0AAAAJ&hl"   # <- change if needed
+AUTHOR_ID = "uMwPCy0AAAAJ"   # <- change if needed
 
 # Where to store the JSON inside your repo
 OUTPUT_PATH = Path("metrics.json")
