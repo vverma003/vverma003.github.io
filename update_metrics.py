@@ -1,30 +1,52 @@
+# scripts/update_scholar_metrics.py
+
 import json
-import requests
+from pathlib import Path
+from datetime import datetime, timezone
 
-ORCID_ID = "0000-0002-4552-5025"
-url = f"https://api.openalex.org/authors/https://orcid.org/{ORCID_ID}"
+from scholarly import scholarly  # pip install scholarly
 
-headers = {
-    'User-Agent': 'mailto:vishwajeet.verma@tcd.ie'  # OpenAlex polite pool requirement
-}
+# ---- CONFIGURATION ----
+# Your Google Scholar author ID (from ?user=... in your profile URL)
+AUTHOR_ID = "uMwPCy0AAAAJ&hl"   # <- change if needed
 
-try:
-    response = requests.get(url, headers=headers, timeout=10)
-    response.raise_for_status()
-    data = response.json()
+# Where to store the JSON inside your repo
+OUTPUT_PATH = Path("metrics.json")
+# ------------------------
 
-    # Extract metrics from OpenAlex payload
-    metrics_data = {
-        "citations": data.get("cited_by_count", 0),
-        "h_index": data.get("summary_stats", {}).get("h_index", 0),
-        "i10_index": data.get("summary_stats", {}).get("i10_index", 0)
+
+def fetch_scholar_metrics(author_id: str):
+    """Fetch total citations, h-index, and i10-index for a Scholar author."""
+    author = scholarly.search_author_id(author_id)
+    author = scholarly.fill(author)  # populate full data
+
+    cites = author.get("citedby", None)
+    indices = author.get("hindex", None)
+    i10 = author.get("i10index", None)
+
+    metrics = {
+        "citations": cites,
+        "hIndex": indices,
+        "i10Index": i10,
     }
+    return metrics
 
-    with open("metrics.json", "w") as f:
-        json.dump(metrics_data, f, indent=2)
 
-    print("Successfully generated metrics.json via OpenAlex:", metrics_data)
+def main():
+    metrics = fetch_scholar_metrics(AUTHOR_ID)
 
-except Exception as e:
-    print(f"Error fetching metrics from OpenAlex: {e}")
-    raise e
+    # Add updatedAt field in ISO format (UTC)
+    metrics["updatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # Ensure parent directory exists
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    with OUTPUT_PATH.open("w", encoding="utf-8") as f:
+        json.dump(metrics, f, ensure_ascii=False, indent=2)
+
+    print(f"Wrote metrics to {OUTPUT_PATH.resolve()}:")
+    print(json.dumps(metrics, indent=2))
+
+
+if __name__ == "__main__":
+    main()
