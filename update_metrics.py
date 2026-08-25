@@ -32,10 +32,11 @@ def fetch_scholar_metrics(author_id: str):
     author = scholarly.fill(author, sections=['basics', 'indices'])
 
     metrics = {
-        "citations": author.get("citedby", 0),
-        "h_index": author.get("hindex", 0),
-        "i10_index": author.get("i10index", 0),
+        "citations": data.get("cited_by_count", 0),
+        "h_index": data.get("summary_stats", {}).get("h_index", 0),
+        "i10_index": data.get("summary_stats", {}).get("i10_index", 0)
     }
+
     return metrics
 
 
