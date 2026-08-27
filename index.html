@@ -13,34 +13,33 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<!-- Floating "Write to Me" Button -->
-<button class="floating-chat-btn" onclick="openModal('write-to-me-modal')" aria-label="Write to Me">
-  <i class="fa-solid fa-paper-plane"></i>
-  <span class="floating-chat-text">Write to Me</span>
-</button>
+<body>
 
-<!-- Write To Me Modal -->
-<div id="write-to-me-modal" class="modal-overlay" onclick="closeModalOutside(event, 'write-to-me-modal')">
-  <div class="modal-container" style="max-width: 500px;">
-    <div class="modal-header">
-      <div class="modal-title"><i class="fa-solid fa-paper-plane"></i> Write to Me</div>
-      <button class="modal-close" onclick="closeModal('write-to-me-modal')">&times;</button>
-    </div>
-    <div class="modal-body">
-      <form id="contact-form" action="https://formspree.io/f/moeqapnw" method="POST">
-        <div class="comment-input-box">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
-          <button type="submit" class="comment-submit-btn" style="width: 100%; padding: 0.6rem;">Send Message</button>
-        </div>
-      </form>
+  <!-- Floating "Write to Me" Button -->
+  <button class="floating-chat-btn" onclick="openModal('write-to-me-modal')" aria-label="Write to Me">
+    <i class="fa-solid fa-paper-plane"></i>
+    <span class="floating-chat-text">Write to Me</span>
+  </button>
+
+  <!-- Write To Me Modal -->
+  <div id="write-to-me-modal" class="modal-overlay" onclick="closeModalOutside(event, 'write-to-me-modal')">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-paper-plane"></i> Write to Me</div>
+        <button class="modal-close" onclick="closeModal('write-to-me-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="contact-form" action="https://formspree.io/f/moeqapnw" method="POST">
+          <div class="comment-input-box">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
+            <button type="submit" class="comment-submit-btn" style="width: 100%; padding: 0.6rem;">Send Message</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-
-
-<body>
 
   <!-- Static Sidebar -->
   <aside class="sidebar">
@@ -62,31 +61,54 @@
       </p>
     </div>
 
-    <!-- CV View Button -->
-    <div class="cv-container">
-      <a href="assets/CV_V.Verma.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i> Download CV
-      </a>
-    </div>
+    <!-- Pinned Bottom Container -->
+    <div class="sidebar-bottom">
+      <!-- CV View Button -->
+      <div class="cv-container">
+        <button type="button" onclick="openModal('cv-modal')" class="cv-btn">
+          <i class="fa-solid fa-file-pdf"></i> View CV
+        </button>
+      </div>
 
-    <!-- Email Address Display -->
-    <div class="email-container">
-      <a href="mailto:vverma@tcd.ie" class="email-btn" title="Send Email">
-        <i class="fa-solid fa-envelope"></i> vverma@tcd.ie
-      </a>
-    </div>
+      <!-- Email Address Display -->
+      <div class="email-container">
+        <a href="mailto:vverma@tcd.ie" class="email-btn" title="Send Email">
+          <i class="fa-solid fa-envelope"></i> vverma@tcd.ie
+        </a>
+      </div>
 
-    <!-- Social Icons -->
-    <div class="social-links">
-      <a href="https://scholar.google.com/citations?user=uMwPCy0AAAAJ&hl=en" target="_blank" rel="noopener" class="social-btn" title="Google Scholar"><i class="fa-brands fa-google-scholar"></i></a>
-      <a href="https://www.researchgate.net/profile/Vishwajeet-Verma-2" target="_blank" rel="noopener" class="social-btn" title="ResearchGate"><i class="fa-brands fa-researchgate"></i></a>
-      <a href="https://www.linkedin.com/in/vverma003/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="https://github.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
-      <a href="https://x.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="https://instagram.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://facebook.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <!-- Social Icons -->
+      <div class="social-links">
+        <a href="https://scholar.google.com/citations?user=uMwPCy0AAAAJ&hl=en" target="_blank" rel="noopener" class="social-btn" title="Google Scholar"><i class="fa-brands fa-google-scholar"></i></a>
+        <a href="https://www.researchgate.net/profile/Vishwajeet-Verma-2" target="_blank" rel="noopener" class="social-btn" title="ResearchGate"><i class="fa-brands fa-researchgate"></i></a>
+        <a href="https://www.linkedin.com/in/vverma003/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://x.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://instagram.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://facebook.com/vverma003" target="_blank" rel="noopener" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
     </div>
   </aside>
+
+  <!-- Modal Container for CV -->
+  <div id="cv-modal" class="modal-overlay" onclick="closeModalOutside(event, 'cv-modal')">
+    <div class="modal-container cv-modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-file-pdf"></i> Curriculum Vitae
+        </div>
+        <div class="modal-header-actions">
+          <a href="assets/CV_V.Verma.pdf" download class="modal-download-btn" title="Download PDF">
+            <i class="fa-solid fa-download"></i> Download
+          </a>
+          <button class="modal-close" onclick="closeModal('cv-modal')">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body cv-modal-body">
+        <iframe src="assets/CV_V.Verma.pdf" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content Wrapper -->
   <div class="main-wrapper">
