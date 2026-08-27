@@ -1,0 +1,122 @@
+/* Mobile & Tablet Responsive Queries (900px and below) */
+@media (max-width: 900px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+  }
+
+  .sidebar-bottom {
+    margin-top: 1.5rem;
+  }
+
+  .main-wrapper {
+    margin-left: 0;
+    padding-top: 60px;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #0b1120;
+    z-index: 999;
+    padding: 0 1.25rem;
+    justify-content: flex-start;
+  }
+
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-tabs {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #0b1120;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+
+  .nav-tabs.is-active {
+    display: flex !important;
+  }
+
+  .nav-tabs li {
+    width: 100%;
+  }
+
+  .tab-btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .tab-btn.active::after {
+    display: none;
+  }
+
+  .content-container {
+    padding: 1.5rem;
+  }
+
+  .course-card {
+    flex-direction: column;
+  }
+
+  .certificate-wrapper {
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 0.8rem;
+  }
+
+  .certificate-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+
+  /* Floating Button Collapses to Circular Icon */
+  .floating-chat-btn {
+    bottom: 15px;
+    right: 15px;
+    padding: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    min-width: 3.2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    gap: 0;
+  }
+
+  .floating-chat-text,
+  .floating-btn-text {
+    display: none !important;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  .floating-chat-btn i {
+    font-size: 1.15rem;
+    margin: 0;
+    padding: 0;
+  }
+}
