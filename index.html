@@ -12,6 +12,34 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
+<!-- Floating "Write to Me" Button -->
+<button class="floating-chat-btn" onclick="openModal('write-to-me-modal')" aria-label="Write to Me">
+  <i class="fa-solid fa-paper-plane"></i>
+  <span class="floating-chat-text">Write to Me</span>
+</button>
+
+<!-- Write To Me Modal -->
+<div id="write-to-me-modal" class="modal-overlay" onclick="closeModalOutside(event, 'write-to-me-modal')">
+  <div class="modal-container" style="max-width: 500px;">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fa-solid fa-paper-plane"></i> Write to Me</div>
+      <button class="modal-close" onclick="closeModal('write-to-me-modal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="contact-form" action="https://formspree.io/f/moeqapnw" method="POST">
+        <div class="comment-input-box">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
+          <button type="submit" class="comment-submit-btn" style="width: 100%; padding: 0.6rem;">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <body>
 
   <!-- Static Sidebar -->

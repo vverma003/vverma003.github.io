@@ -103,6 +103,70 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* Floating Bottom-Right Widget */
+.floating-chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.1rem;
+  background: linear-gradient(135deg, var(--accent-color), #818cf8);
+  color: #0f172a;
+  border: none;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+.floating-chat-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4);
+  filter: brightness(1.08);
+}
+
+.floating-chat-btn i {
+  font-size: 0.95rem;
+}
+
+/* Tablet & Mobile Responsive (900px and below): Clean Circular Icon */
+@media (max-width: 900px) {
+  .floating-chat-btn {
+    bottom: 15px;
+    right: 15px;
+    padding: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    min-width: 3.2rem; /* Prevents button from shrinking */
+    border-radius: 50%;
+    overflow: hidden; /* Clips any overflowing text completely */
+    gap: 0;
+  }
+
+  /* Completely remove text from layout space */
+  .floating-chat-text,
+  .floating-btn-text {
+    display: none !important;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  .floating-chat-btn i {
+    font-size: 1.15rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
 .cv-container {
   margin-top: auto;
   width: 100%;
