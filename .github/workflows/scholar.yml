@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install scholarly requests
+          pip install "bibtexparser<=1.4.1" scholarly
 
       - name: Fetch Scholar Data
         run: python update_metrics.py

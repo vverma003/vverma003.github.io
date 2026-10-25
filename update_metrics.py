@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from datetime import datetime, timezone
+import datetime
 
 from scholarly import scholarly  # pip install scholarly
 
@@ -36,7 +36,7 @@ def main():
     metrics = fetch_scholar_metrics(AUTHOR_ID)
 
     # Add updatedAt field in ISO format (UTC)
-    metrics["updatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    metrics["updatedAt"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
 
     # Ensure parent directory exists
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
